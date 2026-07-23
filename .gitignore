@@ -1,4 +1,7 @@
+.next 
+.env*.local
 .env 
+tsconfig.tsbuildinfo
 stats.html
 stats(before).html
 
