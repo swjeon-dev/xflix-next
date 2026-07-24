@@ -13,7 +13,7 @@ export const API_CONFIG: IApiConfig = {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: `Bearer ${import.meta.env.VITE_TMDB_ACCESS_TOKEN}`,
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_API_KEY}`,
     },
   },
 } as const

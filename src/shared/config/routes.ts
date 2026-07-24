@@ -1,4 +1,4 @@
-import { buildSearchPath } from '@/shared/lib'
+import { buildSearchPath } from '@/shared'
 
 export const routes = {
   ROOT: '/',

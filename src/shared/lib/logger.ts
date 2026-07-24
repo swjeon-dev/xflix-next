@@ -6,7 +6,7 @@ interface IDevLogProps {
 }
 
 export function devLog({ message, type = 'log' }: IDevLogProps) {
-  if (import.meta.env.PROD) return
+  if (process.env.NODE_ENV === 'production') return
 
   if (type === 'error') {
     console.error(message)

@@ -1,6 +1,7 @@
 .next 
-.env*.local
-.env 
+.env.local
+.env.example
+.env
 tsconfig.tsbuildinfo
 stats.html
 stats(before).html

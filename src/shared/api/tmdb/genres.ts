@@ -12,6 +12,7 @@ export const getGenres = async (
     type === 'movie' ? API_ENDPOINT.GENRES_MOVIE : API_ENDPOINT.GENRES_TV,
     undefined,
     '장르를 알 수 없습니다.',
+    { next: { tags: ['genres', type] } },
   )
 
   if (result.error || !result.data?.genres) {

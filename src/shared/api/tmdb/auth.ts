@@ -1,4 +1,4 @@
-import { API_ENDPOINT } from '../../config/api'
+import { API_ENDPOINT } from '../../config'
 import { devLog } from '../../lib'
 import { tmdbFetch } from './client'
 

@@ -1,5 +1,5 @@
 import type { IApiReturn } from '../../types'
-import { API_CONFIG } from '../../config/api'
+import { API_CONFIG } from '../../config'
 import { devLog } from '../../lib'
 
 export type QueryParams = Record<string, string | number | boolean>
@@ -21,9 +21,15 @@ export async function tmdbFetch<T>(
   endpoint: string,
   query?: QueryParams,
   errorMessage = '요청에 실패했습니다.',
+  fetchOptions?: Pick<RequestInit, 'cache'> & {
+    next?: { revalidate?: number | false; tags?: string[] }
+  },
 ): Promise<IApiReturn<T>> {
   try {
-    const response = await fetch(buildUrl(endpoint, query), API_CONFIG.OPTIONS)
+    const response = await fetch(buildUrl(endpoint, query), {
+      ...API_CONFIG.OPTIONS,
+      ...fetchOptions,
+    })
 
     if (!response.ok) {
       throw new Error(errorMessage)
