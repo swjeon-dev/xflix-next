@@ -1,4 +1,4 @@
-import type { BaseMedia } from './contents.types'
+import type { BaseMedia, IGenre } from './contents.types'
 
 type ScrollDirection = 'LEFT' | 'RIGHT'
 
@@ -27,6 +27,7 @@ interface WrapperProps {
 interface GenreCarouselProps {
   title: string
   endPoint: string
+  genres: IGenre[]
   params?: Record<string, string | number | boolean>
 }
 

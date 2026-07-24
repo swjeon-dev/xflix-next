@@ -1,17 +1,21 @@
+'use client'
 import { useRef } from 'react'
 
 import { TrailerOpenButton } from '@/features/trailer'
 import type { IMovie } from '@/entities/movie'
 import { MovieCard } from '@/entities/movie'
-import { useGenre } from '@/entities/genre'
-import { Carousel, GenreCarouselProps } from '@/shared'
+import { Carousel, type GenreCarouselProps } from '@/shared'
 
 import { useCarouselContents } from './model'
 
-function MovieCarousel({ title, endPoint, params }: GenreCarouselProps) {
+function MovieCarousel({
+  title,
+  endPoint,
+  params,
+  genres,
+}: GenreCarouselProps) {
   const scrollRef = useRef<HTMLUListElement>(null)
 
-  const { movieGenres } = useGenre()
   const { loaderRef, contents, isLoading, isFetchingMore, error, refetch } =
     useCarouselContents<IMovie>({
       endPoint,
@@ -33,7 +37,7 @@ function MovieCarousel({ title, endPoint, params }: GenreCarouselProps) {
         <MovieCard
           key={`${movie.id}-movie-carousel`}
           content={movie}
-          genres={movieGenres}
+          genres={genres}
           action={
             <TrailerOpenButton
               contentId={movie.id.toString()}

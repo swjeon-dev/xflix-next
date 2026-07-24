@@ -1,11 +1,10 @@
-import { useGenre } from '@/entities/genre'
+import { API_ENDPOINT, getGenres, PageHelmet } from '@/shared'
 import type { IMovie } from '@/entities/movie'
-import { API_ENDPOINT, PageHelmet } from '@/shared'
 import { GenreMovieCard } from '@/widgets/genre-movie'
 import { GenreSection } from '@/widgets/genre-section'
 
-function Movie() {
-  const { movieGenres } = useGenre()
+async function Movie() {
+  const movieGenres = await getGenres('movie')
 
   return (
     <>
@@ -17,7 +16,7 @@ function Movie() {
       <section>
         <GenreSection<IMovie>
           label='영화'
-          genres={movieGenres}
+          genres={movieGenres.data ?? []}
           endPoint={API_ENDPOINT.MOVIE_FILTERED}
           allTitle='전체 영화'
           fallbackTitle='영화'

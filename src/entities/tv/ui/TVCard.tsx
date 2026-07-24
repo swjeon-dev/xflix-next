@@ -1,5 +1,4 @@
-import { Link } from 'react-router'
-import { useMemo } from 'react'
+import Link from 'next/link'
 
 import {
   routes,
@@ -17,15 +16,13 @@ interface TVCardProps {
 }
 
 function TVCard({ content, action, genres }: TVCardProps) {
-  const contentMoreInfo = useMemo(() => {
-    return {
-      title: content.name,
-      overview: content.overview,
-      adult: content.adult,
-      year: content.first_air_date,
-      genres: genreFiltered(content.genre_ids, genres),
-    }
-  }, [content, genres])
+  const contentMoreInfo = {
+    title: content.name,
+    overview: content.overview,
+    adult: content.adult,
+    year: content.first_air_date,
+    genres: genreFiltered(content.genre_ids, genres),
+  }
 
   const lowImageUrl = getTmdbImgPath({
     size: 'w300',
@@ -35,7 +32,7 @@ function TVCard({ content, action, genres }: TVCardProps) {
   return (
     <li className='relative aspect-video min-w-[300px] md:min-w-[380px] transition-colors ease-in delay-150 duration-150 z-10 group/button-hover'>
       <Link
-        to={routes.TV.DETAIL(content.id)}
+        href={routes.TV.DETAIL(content.id)}
         className='absolute inset-0 hover:opacity-60'
         aria-label={`${contentMoreInfo.title} 상세보기`}
       >

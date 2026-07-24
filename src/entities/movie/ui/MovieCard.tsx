@@ -1,5 +1,4 @@
-import { Link } from 'react-router'
-import { useMemo } from 'react'
+import Link from 'next/link'
 
 import {
   routes,
@@ -8,7 +7,7 @@ import {
   type IGenre,
   genreFiltered,
 } from '@/shared'
-import type { IMovie } from '../model/movie.types'
+import type { IMovie } from '../model'
 
 interface MovieCardProps {
   content: IMovie
@@ -17,15 +16,13 @@ interface MovieCardProps {
 }
 
 function MovieCard({ content, action, genres }: MovieCardProps) {
-  const contentMoreInfo = useMemo(() => {
-    return {
-      title: content.title,
-      overview: content.overview,
-      adult: content.adult,
-      year: content.release_date ?? null,
-      genres: genreFiltered(content.genre_ids, genres),
-    }
-  }, [content, genres])
+  const contentMoreInfo = {
+    title: content.title,
+    overview: content.overview,
+    adult: content.adult,
+    year: content.release_date ?? null,
+    genres: genreFiltered(content.genre_ids, genres),
+  }
 
   const lowImageUrl = getTmdbImgPath({
     size: 'w300',
@@ -35,7 +32,7 @@ function MovieCard({ content, action, genres }: MovieCardProps) {
   return (
     <li className='relative aspect-video min-w-[300px] md:min-w-[380px] transition-colors ease-in delay-150 duration-150 z-10 group/button-hover'>
       <Link
-        to={routes.MOVIE.DETAIL(content.id)}
+        href={routes.MOVIE.DETAIL(content.id)}
         className='absolute inset-0 hover:opacity-60'
         aria-label={`${contentMoreInfo.title} 상세보기`}
       >

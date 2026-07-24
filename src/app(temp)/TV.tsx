@@ -1,11 +1,10 @@
-import { useGenre } from '@/entities/genre'
 import type { ITV } from '@/entities/tv'
-import { API_ENDPOINT, PageHelmet } from '@/shared'
+import { API_ENDPOINT, getGenres, PageHelmet } from '@/shared'
 import { GenreSection } from '@/widgets/genre-section'
 import { GenreTVCard } from '@/widgets/genre-tv'
 
-function TV() {
-  const { tvGenres } = useGenre()
+async function TV() {
+  const tvGenres = await getGenres('tv')
 
   return (
     <>

@@ -1,17 +1,16 @@
+'use client'
 import { useRef } from 'react'
 
 import { TrailerOpenButton } from '@/features/trailer'
 import type { ITV } from '@/entities/tv'
 import { TVCard } from '@/entities/tv'
-import { useGenre } from '@/entities/genre'
-import { Carousel, GenreCarouselProps } from '@/shared'
+import { Carousel, type GenreCarouselProps } from '@/shared'
 
 import { useCarouselContents } from './model'
 
-function TVCarousel({ title, endPoint, params }: GenreCarouselProps) {
+function TVCarousel({ title, endPoint, params, genres }: GenreCarouselProps) {
   const scrollRef = useRef<HTMLUListElement>(null)
 
-  const { tvGenres } = useGenre()
   const { loaderRef, contents, isLoading, isFetchingMore, error, refetch } =
     useCarouselContents<ITV>({
       endPoint,
@@ -33,7 +32,7 @@ function TVCarousel({ title, endPoint, params }: GenreCarouselProps) {
         <TVCard
           key={`${tv.id}-tv-carousel`}
           content={tv}
-          genres={tvGenres}
+          genres={genres}
           action={
             <TrailerOpenButton
               contentId={tv.id.toString()}
