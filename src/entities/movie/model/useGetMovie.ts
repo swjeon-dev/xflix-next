@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from 'react'
 
 import { parseQueryKey, type QueryParams } from '@/shared'

@@ -1,5 +1,5 @@
-import type { IMovie } from '@/entities/movie'
 import { MetaTagGroup } from '@/shared'
+import type { IMovie } from '@/entities/movie'
 
 import type { IMovieMoreInfo } from '../model'
 

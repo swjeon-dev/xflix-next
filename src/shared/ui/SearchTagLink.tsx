@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import Link from 'next/link'
 
 import { routes } from '@/shared'
 import type {
@@ -16,7 +16,7 @@ interface SearchTagLinkProps {
 function SearchTagLink({ filter, tag, type }: SearchTagLinkProps) {
   return (
     <Link
-      to={routes.SEARCH.path({
+      href={routes.SEARCH.path({
         type,
         [filter]: tag.id,
         label: tag.name,

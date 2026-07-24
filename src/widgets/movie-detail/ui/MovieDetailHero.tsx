@@ -1,5 +1,5 @@
-import { AdultUI, ICONS } from '@/shared'
-import { useModal } from '@/shared'
+'use client'
+import { AdultUI, ICONS, useModal } from '@/shared'
 import type { IMovie } from '@/entities/movie'
 import type { IMovieMoreInfo } from '../model'
 import MovieBackdrop from './MovieBackdrop'
