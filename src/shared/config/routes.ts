@@ -4,8 +4,8 @@ export const routes = {
   ROOT: '/',
   MOVIE: {
     PARAMETER: '/:id',
-    LIST: '/movies',
-    DETAIL: (id: string | number) => `/movies/${id}`,
+    LIST: '/movie',
+    DETAIL: (id: string | number) => `/movie/${id}`,
   },
   TV: {
     PARAMETER: '/:id',
