@@ -1,3 +1,4 @@
+'use client'
 import { devLog, SkeletonUI } from '@/shared'
 
 const GRID_CLASS =

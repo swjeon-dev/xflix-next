@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import Link from 'next/link'
 
 import { routes, getTmdbImgPath } from '@/shared'
 import type { IMovie } from '@/entities/movie'
@@ -12,7 +12,7 @@ function GenreMovieCard({ content }: { content: IMovie }) {
   return (
     <li>
       <Link
-        to={routes.MOVIE.DETAIL(content.id)}
+        href={routes.MOVIE.DETAIL(content.id.toString())}
         className='group block'
         aria-label={`${content.title} 상세보기`}
       >

@@ -1,10 +1,6 @@
 import { useCallback, useMemo } from 'react'
 
-import {
-  useInfinitePagination,
-  usePaginatedList,
-  type BaseMedia,
-} from '@/shared'
+import { useInfinitePagination, usePaginatedList } from '@/shared'
 import useGetContents from './useGetContents'
 
 type UseInfiniteContentsProps = {
@@ -14,7 +10,7 @@ type UseInfiniteContentsProps = {
   direction?: 'horizontal' | 'vertical'
 }
 
-function useInfiniteContents<T extends BaseMedia>({
+function useInfiniteContents({
   endPoint,
   params,
   scrollRef,
@@ -24,9 +20,9 @@ function useInfiniteContents<T extends BaseMedia>({
   const mode =
     direction === 'horizontal' ? 'horizontal-carousel' : 'vertical-list'
 
-  const pagination = usePaginatedList<T>({ queryKey })
+  const pagination = usePaginatedList({ queryKey })
 
-  const { isLoading, isFetching, error, contents, refetch } = useGetContents<T>(
+  const { isLoading, isFetching, error, contents, refetch } = useGetContents(
     endPoint,
     { ...params, page: pagination.page },
   )

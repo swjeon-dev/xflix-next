@@ -1,3 +1,4 @@
+'use client'
 import { useMemo, useState } from 'react'
 
 import {
@@ -5,7 +6,6 @@ import {
   type DiscoverMedia,
   type IGenre,
   type SortBy,
-  type BaseMedia,
 } from '@/shared'
 import { useInfiniteContents } from '@/entities/media'
 
@@ -20,7 +20,7 @@ interface UseGenreSectionParams {
   media: DiscoverMedia
 }
 
-function useGenreSection<T extends BaseMedia>({
+function useGenreSection({
   genres,
   endPoint,
   allTitle,
@@ -40,7 +40,7 @@ function useGenreSection<T extends BaseMedia>({
   )
 
   const { loaderRef, contents, isLoading, isFetchingMore, error, refetch } =
-    useInfiniteContents<T>({
+    useInfiniteContents({
       endPoint,
       params,
       direction: 'vertical',

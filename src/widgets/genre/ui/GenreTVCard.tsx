@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import Link from 'next/link'
 
 import { routes, getTmdbImgPath } from '@/shared'
 import type { ITV } from '@/entities/tv'
@@ -12,7 +12,7 @@ function GenreTVCard({ content }: { content: ITV }) {
   return (
     <li>
       <Link
-        to={routes.TV.DETAIL(content.id)}
+        href={routes.TV.DETAIL(content.id)}
         className='group block'
         aria-label={`${content.name} 상세보기`}
       >

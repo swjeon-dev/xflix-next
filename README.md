@@ -130,7 +130,7 @@ src/
 │   ├── header/             # AppHeader, 네비게이션
 │   ├── home/               # 홈 히어로 · 섹션
 │   ├── carousel/           # 영화 / TV 캐러셀
-│   ├── genre-section/      # 장르 목록 · 필터
+│   ├── genre/              # 장르 목록 · 필터 · 카드
 │   ├── movie-detail/
 │   ├── tv-detail/
 │   ├── mobile-nav/
