@@ -1,8 +1,7 @@
-import { Link } from 'react-router'
+'use client'
+import Link from 'next/link'
 
-import { ICONS } from '@/shared/assets/icons'
-import { routes } from '@/shared/config/routes'
-import { useGetScrollY } from '@/shared'
+import { ICONS, routes, useGetScrollY } from '@/shared'
 
 import DesktopNav from './ui/DesktopNav'
 import HeaderMenu from './ui/HeaderMenu'
@@ -16,7 +15,7 @@ function AppHeader() {
       className={`fixed top-0 w-full flex items-center gap-16 p-4 z-20 transition-colors duration-500 ease-in-out
           ${!isScroll ? 'bg-gradient-to-b from-black/80 to-transparent' : 'bg-black'}`}
     >
-      <Link to={routes.ROOT} className='shrink-0'>
+      <Link href={routes.ROOT} className='shrink-0'>
         {ICONS.logo}
       </Link>
 

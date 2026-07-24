@@ -1,3 +1,4 @@
+'use client'
 import { useCallback, useEffect, useState } from 'react'
 
 const DEFAULT_ROOT_MARGIN = '0px 0px 320px 0px'

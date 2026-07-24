@@ -1,5 +1,5 @@
-// featuredMovie 책임 분리를 위한 컴포넌트
-import { Link } from 'react-router'
+'use client'
+import Link from 'next/link'
 
 import { LoadingComponent, devLog } from '@/shared'
 import { useGetFeaturedMovie } from '../model'
@@ -24,7 +24,7 @@ function FeaturedMovie() {
   return (
     <article className='relative h-[80vh] w-full overflow-hidden'>
       <Link
-        to={featuredContent.detailUrl}
+        href={featuredContent.detailUrl}
         className='absolute inset-0 z-0'
         aria-label={`${featuredContent.title} 상세 페이지로 이동`}
       >

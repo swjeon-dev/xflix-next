@@ -1,7 +1,7 @@
-// featuredMovie 책임 분리를 위한 모델
+'use client'
 import { useMemo } from 'react'
-import { API_ENDPOINT, getTmdbImgPath } from '@/shared'
-import { routes } from '@/shared/config/routes'
+
+import { API_ENDPOINT, getTmdbImgPath, routes } from '@/shared'
 import { useGetContents } from '@/entities/media'
 import type { IFeaturedMovie, IMovie } from '@/entities/movie'
 

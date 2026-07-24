@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router'
+import { useRouter } from 'next/navigation'
 
 import { routes } from '@/shared'
 
@@ -8,19 +8,19 @@ interface SearchModalContentsProps {
 }
 
 function SearchModalContents({ onClose }: SearchModalContentsProps) {
-  const navigate = useNavigate()
+  const router = useRouter()
   const [search, setSearch] = useState('')
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function onSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault()
-    const formData = new FormData(e.target as HTMLFormElement)
+    const formData = new FormData(e.target)
     const term = (formData.get('search') as string)?.trim()
 
     if (!term) return
 
     setSearch('')
     onClose()
-    navigate(routes.SEARCH.path({ term, type: 'movie' }))
+    router.push(routes.SEARCH.path({ term, type: 'movie' }))
   }
 
   return (

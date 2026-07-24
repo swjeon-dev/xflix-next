@@ -1,3 +1,4 @@
+'use client'
 import { useCallback, useLayoutEffect } from 'react'
 
 import {

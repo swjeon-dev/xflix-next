@@ -1,6 +1,7 @@
+'use client'
 import { useEffect, useRef, ReactNode } from 'react'
 
-import { cn } from '@/shared/lib'
+import { cn } from '@/shared'
 
 interface DialogWrapperProps {
   isOpen: boolean

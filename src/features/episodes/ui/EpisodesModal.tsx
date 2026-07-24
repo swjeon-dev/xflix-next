@@ -1,3 +1,4 @@
+'use client'
 import type { IEpisode } from '@/entities/tv'
 
 import useEpisode from '../model/useEpisode'

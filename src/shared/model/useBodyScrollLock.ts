@@ -1,6 +1,7 @@
+'use client'
 import { useEffect, useState } from 'react'
-import { MEDIA_QUERY } from '@/shared/config/breakpoints'
-import type { Breakpoints } from '@/shared/config/breakpoints'
+import { MEDIA_QUERY } from '@/shared'
+import type { Breakpoints } from '@/shared'
 
 interface UseBodyScrollLockOptions {
   /** 이 breakpoint(max-width)에 맞을 때만 잠금. 생략 시 항상 잠금 */

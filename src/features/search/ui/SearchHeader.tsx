@@ -1,7 +1,5 @@
-import type { SearchFilterKey } from '@/shared'
-
 import { SEARCH_FILTER_LABELS } from '../lib/searchFilterLabels'
-import type { SearchMediaType } from '@/shared'
+import type { SearchFilterKey, SearchMediaType } from '@/shared'
 import SearchTabs from './SearchTabs'
 
 interface SearchHeaderProps {

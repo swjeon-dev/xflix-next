@@ -1,5 +1,6 @@
+'use client'
 import { lazy, Suspense, useEffect, useRef } from 'react'
-import { useLocation } from 'react-router'
+import { usePathname } from 'next/navigation'
 
 import { DialogWrapper, useModal, cn } from '@/shared'
 import { MobileModalNavigation } from '@/widgets/mobile-nav'
@@ -41,18 +42,18 @@ function ModalBody({
 
 export default function GlobalModalContainer() {
   const { currentModal, closeModal } = useModal()
-  const location = useLocation()
-  const prevLocation = useRef(location.pathname)
+  const pathname = usePathname()
+  const prevPathname = useRef(pathname)
   const modal = currentModal as ModalState | null
 
   useEffect(() => {
-    const currentLocation = location.pathname
+    const currentPathname = pathname
 
-    if (prevLocation.current === currentLocation) return
+    if (prevPathname.current === currentPathname) return
 
-    prevLocation.current = currentLocation
+    prevPathname.current = currentPathname
     closeModal()
-  }, [location.pathname, closeModal])
+  }, [pathname, closeModal])
 
   if (!modal) return null
 

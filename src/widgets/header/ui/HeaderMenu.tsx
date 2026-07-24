@@ -1,5 +1,5 @@
-import { useModal } from '@/shared'
-import { ICONS } from '@/shared/assets/icons'
+'use client'
+import { ICONS, useModal } from '@/shared'
 
 function HeaderMenu() {
   const { openModal } = useModal()

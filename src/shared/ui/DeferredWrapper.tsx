@@ -1,3 +1,4 @@
+'use client'
 import { useInView } from '../model'
 
 function DeferredWrapper({ children }: { children: React.ReactNode }) {

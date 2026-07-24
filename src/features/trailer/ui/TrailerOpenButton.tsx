@@ -1,3 +1,4 @@
+'use client'
 import { ICONS, useModal } from '@/shared'
 
 interface TrailerOpenButtonProps {

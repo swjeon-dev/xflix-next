@@ -1,5 +1,6 @@
-import clsx from 'clsx'
+'use client'
 
+import { cn } from '@/shared'
 import { type YoutubeEmbedVariant } from '../lib'
 import useYoutubePlayer from '../model/useYoutubePlayer'
 
@@ -26,10 +27,7 @@ function YoutubePlayer({
     onUnavailable,
   })
 
-  const className = clsx(
-    BASE_CLASS,
-    variant === 'background' && BACKGROUND_CLASS,
-  )
+  const className = cn(BASE_CLASS, variant === 'background' && BACKGROUND_CLASS)
 
   return (
     <div
