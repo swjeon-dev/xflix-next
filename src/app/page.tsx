@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 
-import { DeferredWrapper, getGenres } from '@/shared'
+import { DeferredWrapper } from '@/shared'
 import { FeaturedMovie, MOVIE_CATEGORIES, TV_CATEGORIES } from '@/widgets/home'
-import { MovieCarousel, TVCarousel } from '@/widgets/carousel'
+import { CarouselShell } from '@/widgets/carousel'
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -21,29 +21,26 @@ export const metadata: Metadata = {
 }
 
 async function Home() {
-  const { data: movieGenres } = await getGenres('movie')
-  const { data: tvGenres } = await getGenres('tv')
-
   return (
     <section>
       <FeaturedMovie />
       <article>
         {MOVIE_CATEGORIES.map((category, idx) =>
           idx === 0 ? (
-            <MovieCarousel
+            <CarouselShell
+              type='movie'
               key={category.endPoint}
               title={category.title}
               endPoint={category.endPoint}
               params={{ region: 'KR', page: 1 }}
-              genres={movieGenres ?? []}
             />
           ) : (
             <DeferredWrapper key={category.endPoint}>
-              <MovieCarousel
+              <CarouselShell
+                type='movie'
                 title={category.title}
                 endPoint={category.endPoint}
                 params={{ region: 'KR', page: 1 }}
-                genres={movieGenres ?? []}
               />
             </DeferredWrapper>
           ),
@@ -51,11 +48,11 @@ async function Home() {
 
         {TV_CATEGORIES.map(category => (
           <DeferredWrapper key={category.endPoint}>
-            <TVCarousel
+            <CarouselShell
+              type='tv'
               title={category.title}
               endPoint={category.endPoint}
               params={{ region: 'KR', page: 1 }}
-              genres={tvGenres ?? []}
             />
           </DeferredWrapper>
         ))}
