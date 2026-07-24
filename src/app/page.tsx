@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
 }
 
-async function Home() {
+export default async function Home() {
   return (
     <section>
       <FeaturedMovie />
@@ -60,5 +60,3 @@ async function Home() {
     </section>
   )
 }
-
-export default Home
