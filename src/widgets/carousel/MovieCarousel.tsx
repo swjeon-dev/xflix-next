@@ -1,10 +1,10 @@
 'use client'
 import { useRef } from 'react'
 
+import { Carousel, type GenreCarouselProps } from '@/shared'
 import { TrailerOpenButton } from '@/features/trailer'
 import type { IMovie } from '@/entities/movie'
 import { MovieCard } from '@/entities/movie'
-import { Carousel, type GenreCarouselProps } from '@/shared'
 
 import { useCarouselContents } from './model'
 
@@ -37,7 +37,7 @@ function MovieCarousel({
         <MovieCard
           key={`${movie.id}-movie-carousel`}
           content={movie}
-          genres={genres}
+          genres={genres ?? []}
           action={
             <TrailerOpenButton
               contentId={movie.id.toString()}

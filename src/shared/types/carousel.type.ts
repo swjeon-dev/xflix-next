@@ -27,7 +27,7 @@ interface WrapperProps {
 interface GenreCarouselProps {
   title: string
   endPoint: string
-  genres: IGenre[]
+  genres?: IGenre[]
   params?: Record<string, string | number | boolean>
 }
 

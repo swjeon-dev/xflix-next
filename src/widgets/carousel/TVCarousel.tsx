@@ -1,10 +1,10 @@
 'use client'
 import { useRef } from 'react'
 
+import { Carousel, type GenreCarouselProps } from '@/shared'
 import { TrailerOpenButton } from '@/features/trailer'
 import type { ITV } from '@/entities/tv'
 import { TVCard } from '@/entities/tv'
-import { Carousel, type GenreCarouselProps } from '@/shared'
 
 import { useCarouselContents } from './model'
 
@@ -32,7 +32,7 @@ function TVCarousel({ title, endPoint, params, genres }: GenreCarouselProps) {
         <TVCard
           key={`${tv.id}-tv-carousel`}
           content={tv}
-          genres={genres}
+          genres={genres ?? []}
           action={
             <TrailerOpenButton
               contentId={tv.id.toString()}
