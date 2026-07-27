@@ -1,5 +1,3 @@
-import type { IApiReturn } from '@/shared/types/api.types'
-
 export interface IGuestStar {
   character: string
   credit_id: string
@@ -53,10 +51,20 @@ export interface INetwork {
   origin_country: string
 }
 
-/** GET /tv/{series_id}/season/{season_number} */
 export interface ISeason {
+  air_date: string | null
+  episode_count: number
+  id: number
+  name: string
+  overview: string
+  poster_path: string | null
+  season_number: number
+  vote_average: number
+}
+/** GET /tv/{series_id}/season/{season_number} */
+export interface IEpisodes {
   _id: string
-  air_date: string
+  air_date: string | null
   episodes: IEpisode[]
   name: string
   networks: INetwork[]
@@ -65,13 +73,4 @@ export interface ISeason {
   poster_path: string | null
   season_number: number
   vote_average: number
-}
-
-export type ISeasonApiReturn = IApiReturn<ISeason>
-
-/** TV 상세 응답의 seasons 항목 (에피소드 미포함) */
-export interface ISeasonMeta {
-  name: string
-  poster_path: string | null
-  air_date: string
 }

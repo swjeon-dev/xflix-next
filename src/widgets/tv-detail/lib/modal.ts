@@ -1,16 +1,17 @@
 import { useModal } from '@/shared'
-import type { ISeason, IEpisode } from '@/entities/tv'
+import type { IEpisode } from '@/entities/tv'
 
 function openEpisodesModal(
   openModal: ReturnType<typeof useModal>['openModal'],
-  season: ISeason,
+  seasonName: string,
+  episodes: IEpisode[],
   episode: IEpisode | null = null,
 ) {
   openModal({
     type: 'episodes',
     props: {
-      seasonName: season.name,
-      episodes: season.episodes,
+      seasonName,
+      episodes,
       initialEpisode: episode,
     },
   })

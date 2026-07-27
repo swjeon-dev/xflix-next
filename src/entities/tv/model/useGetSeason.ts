@@ -1,22 +1,20 @@
+'use client'
 import { useCallback, useEffect, useState } from 'react'
 
 import { getSeason } from '../api'
-import type { ISeason } from './season.types'
+import type { IEpisode } from './season.types'
 
 interface IUseGetSeasonReturn {
   error: string | null
   isLoading: boolean
-  season: ISeason | null
+  episodes: IEpisode[]
   refetch: () => void
 }
 
-function useGetSeason(
-  tvId: string | undefined,
-  seasonNumber: number | string | undefined,
-): IUseGetSeasonReturn {
+function useGetSeason(id: string, seasonNumber: number): IUseGetSeasonReturn {
   const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [season, setSeason] = useState<ISeason | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [episodes, setEpisodes] = useState<IEpisode[]>([])
   const [refetchCount, setRefetchCount] = useState(0)
 
   const refetch = useCallback(() => {
@@ -24,27 +22,26 @@ function useGetSeason(
   }, [])
 
   useEffect(() => {
-    if (!tvId || seasonNumber == null) {
+    if (!id || seasonNumber == null) {
       setIsLoading(false)
-      setSeason(null)
+      setEpisodes([])
       setError(null)
       return
     }
 
-    const seriesId = tvId
-    const resolvedSeasonNumber = seasonNumber
+    const resolvedSeasonNumber = seasonNumber.toString()
     let cancelled = false
 
     async function loadSeason() {
       setIsLoading(true)
-      setSeason(null)
+      setEpisodes([])
       setError(null)
 
-      const result = await getSeason(seriesId, String(resolvedSeasonNumber))
+      const result = await getSeason(id, resolvedSeasonNumber)
 
       if (cancelled) return
 
-      setSeason(result.data)
+      setEpisodes(result?.data?.episodes ?? [])
       setError(result.error)
       setIsLoading(false)
     }
@@ -54,9 +51,9 @@ function useGetSeason(
     return () => {
       cancelled = true
     }
-  }, [tvId, seasonNumber, refetchCount])
+  }, [id, seasonNumber, refetchCount])
 
-  return { error, isLoading, season, refetch }
+  return { error, isLoading, episodes, refetch }
 }
 
 export default useGetSeason

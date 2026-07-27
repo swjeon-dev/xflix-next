@@ -1,5 +1,5 @@
-import { AdultUI, ICONS } from '@/shared'
-import { useModal } from '@/shared'
+'use client'
+import { useModal, AdultUI, ICONS } from '@/shared'
 import type { ITV } from '@/entities/tv'
 import TVBackdrop from './TVBackdrop'
 

@@ -1,37 +1,17 @@
-import { useGetSeason, type ISeasonMeta } from '@/entities/tv'
+'use client'
+import { useGetSeason } from '@/entities/tv'
 
-import { buildSeasonData } from '../lib'
-
-interface UseTVEpisodesParams {
-  tvId: string | undefined
-  seasonNumber?: number
-  seasonMeta?: ISeasonMeta
-}
-
-function useTVEpisodes({
-  tvId,
-  seasonNumber = 1,
-  seasonMeta,
-}: UseTVEpisodesParams) {
-  const { season, isLoading, error, refetch } = useGetSeason(tvId, seasonNumber)
-
-  const { seasonName, posterPath, airDate, episodeCount } = buildSeasonData(
-    season,
-    seasonMeta,
+function useTVEpisodes(tvId: string, seasonNumber: number) {
+  const { episodes, isLoading, error, refetch } = useGetSeason(
+    tvId,
+    seasonNumber,
   )
-
-  const hasEpisodes = !!season?.episodes.length
-
   return {
-    season,
+    episodes,
+    hasEpisodes: episodes.length > 0,
     isLoading,
     error,
     refetch,
-    seasonName,
-    posterPath,
-    airDate,
-    episodeCount,
-    hasEpisodes,
   }
 }
 

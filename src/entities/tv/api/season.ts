@@ -1,12 +1,12 @@
-import type { ISeason } from '../model/season.types'
+import type { IEpisodes } from '../model/season.types'
 import { tmdbFetch, type IApiReturn, API_ENDPOINT } from '@/shared'
 
 export const getSeason = async (
-  tvId: string,
+  id: string,
   seasonNumber: string,
-): Promise<IApiReturn<ISeason>> => {
-  return tmdbFetch<ISeason>(
-    API_ENDPOINT.TV_SEASONS(tvId, seasonNumber),
+): Promise<IApiReturn<IEpisodes>> => {
+  return tmdbFetch<IEpisodes>(
+    API_ENDPOINT.TV_SEASONS(id, seasonNumber),
     undefined,
     '시즌 정보를 찾을 수 없습니다.',
   )

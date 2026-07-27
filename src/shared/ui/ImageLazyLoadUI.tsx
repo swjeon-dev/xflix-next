@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState } from 'react'
 import { cn, devLog } from '../lib'
 
@@ -34,7 +35,7 @@ function ImageLazyLoadUI({ lowUrl, highUrl, style, name }: IImageLazyLoadUI) {
     <>
       {lowUrl && (
         <img
-          {...{ fetchpriority: 'high' }}
+          fetchPriority='high'
           className={style}
           src={lowUrl}
           alt=''
@@ -43,7 +44,7 @@ function ImageLazyLoadUI({ lowUrl, highUrl, style, name }: IImageLazyLoadUI) {
       )}
       {highUrl && (
         <img
-          {...{ fetchpriority: 'high' }}
+          fetchPriority='high'
           key={highUrl}
           className={className}
           src={highUrl}
