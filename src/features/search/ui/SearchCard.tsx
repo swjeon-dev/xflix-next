@@ -1,4 +1,4 @@
-import { Link } from 'react-router'
+import Link from 'next/link'
 
 import { getTmdbImgPath, AdultUI, type SearchMediaType } from '@/shared'
 import { searchItemDetailPath, searchItemTitle, searchItemYear } from '../lib'
@@ -10,7 +10,7 @@ interface SearchCardProps {
 }
 
 function SearchCard({ type, item }: SearchCardProps) {
-  const title = searchItemTitle(item)
+  const title = searchItemTitle(type, item)
   const year = searchItemYear(item)
   const detailPath = searchItemDetailPath(type, item)
 
@@ -22,7 +22,7 @@ function SearchCard({ type, item }: SearchCardProps) {
   return (
     <li>
       <Link
-        to={detailPath}
+        href={detailPath}
         className='group block'
         aria-label={`${title} 상세보기`}
       >

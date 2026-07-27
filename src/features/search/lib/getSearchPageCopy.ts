@@ -1,5 +1,6 @@
+import { SearchMediaType } from '@/shared'
+import type { SearchParams } from '../model/search.types'
 import { SEARCH_FILTER_LABELS } from './searchFilterLabels'
-import type { ResolvedSearchParams } from './resolveSearchParams'
 
 type SearchPageCopy = {
   pageTitle: string
@@ -7,21 +8,20 @@ type SearchPageCopy = {
   emptyMessage: string
 }
 
-function getTabLabel(type: ResolvedSearchParams['type']) {
+function getTabLabel(type: SearchMediaType) {
   return type === 'movie' ? '영화' : 'TV'
 }
 
 function getSearchPageCopy({
-  mode,
   type,
   term,
   filter,
   label,
-}: ResolvedSearchParams): SearchPageCopy {
+}: SearchParams): SearchPageCopy {
   const tabLabel = getTabLabel(type)
   const filterTypeLabel = filter ? SEARCH_FILTER_LABELS[filter] : null
 
-  if (mode === 'term' && term) {
+  if (term) {
     return {
       pageTitle: `"${term}" 검색`,
       pageDescription: `"${term}" ${tabLabel} 검색 결과를 XFlix에서 확인하세요.`,
@@ -29,7 +29,7 @@ function getSearchPageCopy({
     }
   }
 
-  if (mode === 'filter' && label && filterTypeLabel) {
+  if (label && filterTypeLabel) {
     return {
       pageTitle: `${label} · ${filterTypeLabel}`,
       pageDescription: `${label} ${filterTypeLabel} ${tabLabel} 목록을 XFlix에서 확인하세요.`,

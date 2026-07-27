@@ -1,3 +1,4 @@
+'use client'
 import { useCallback, useEffect, useState } from 'react'
 
 import { getSearch } from '../api'
@@ -17,12 +18,7 @@ type UseSearchQueryProps = {
   enabled: boolean
 }
 
-function useSearchQuery({
-  term,
-  type,
-  page,
-  enabled,
-}: UseSearchQueryProps) {
+function useSearchQuery({ term, type, page, enabled }: UseSearchQueryProps) {
   const [isFetching, setIsFetching] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<SearchQueryResult | null>(null)

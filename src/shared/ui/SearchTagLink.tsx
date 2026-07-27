@@ -18,7 +18,8 @@ function SearchTagLink({ filter, tag, type }: SearchTagLinkProps) {
     <Link
       href={routes.SEARCH.path({
         type,
-        [filter]: tag.id,
+        filter,
+        id: tag.id,
         label: tag.name,
       })}
       className='rounded-full border border-white/50 bg-gray-500/40 px-3 py-1 text-sm font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-gray-900'

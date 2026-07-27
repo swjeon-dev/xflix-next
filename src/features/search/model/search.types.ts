@@ -1,4 +1,12 @@
-import type { SearchMediaType } from '@/shared'
+import type { SearchFilterKey, SearchMediaType } from '@/shared'
+
+type SearchParams = {
+  type: SearchMediaType
+  term?: string | null
+  filter?: SearchFilterKey | null
+  id?: string | null
+  label?: string | null
+}
 
 interface ISearchResult {
   page: number
@@ -61,4 +69,5 @@ export type {
   IUseSearchProps,
   IPersonCreditItem,
   IPersonCredits,
+  SearchParams,
 }

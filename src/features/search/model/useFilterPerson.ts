@@ -1,19 +1,15 @@
+'use client'
 import { useCallback, useEffect, useState } from 'react'
 
-import type { SearchFilterKey, SearchMediaType } from '@/shared'
+import type { SearchParams } from './search.types'
 
 import { getSearchByPerson } from '../api'
 import { personCreditsToSearchItems } from '../lib/toSearchListItem'
 import type { ISearchData } from './search.types'
 
-type UseFilterPersonProps = {
-  filter: SearchFilterKey | null
-  filterId: string | null
-  type: SearchMediaType
-}
-
-function useFilterPerson({ filter, filterId, type }: UseFilterPersonProps) {
-  const enabled = (filter === 'cast' || filter === 'crew') && Boolean(filterId)
+function useFilterPerson({ filter, id, type }: SearchParams) {
+  const enabled =
+    (filter === 'cast' || filter === 'crew') && Boolean(id && type)
 
   const [items, setItems] = useState<ISearchData[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -25,7 +21,7 @@ function useFilterPerson({ filter, filterId, type }: UseFilterPersonProps) {
   }, [])
 
   useEffect(() => {
-    if (!enabled || !filterId || (filter !== 'cast' && filter !== 'crew')) {
+    if (!enabled || !id || (filter !== 'cast' && filter !== 'crew')) {
       setItems([])
       setIsLoading(false)
       setError(null)
@@ -33,7 +29,7 @@ function useFilterPerson({ filter, filterId, type }: UseFilterPersonProps) {
     }
 
     const personFilter = filter
-    const personId = filterId
+    const personId = id
     let cancelled = false
 
     async function loadPersonCredits() {
@@ -60,7 +56,7 @@ function useFilterPerson({ filter, filterId, type }: UseFilterPersonProps) {
     return () => {
       cancelled = true
     }
-  }, [enabled, filter, filterId, type, refetchCount])
+  }, [enabled, filter, id, type, refetchCount])
 
   return {
     items,

@@ -1,8 +1,8 @@
 import { routes, type SearchMediaType } from '@/shared'
 import type { ISearchData } from '../model'
 
-function searchItemTitle(item: ISearchData) {
-  if (item.media_type === 'movie') {
+function searchItemTitle(type: SearchMediaType, item: ISearchData) {
+  if (type === 'movie') {
     return item.title ?? item.original_title ?? '제목 없음'
   }
 
