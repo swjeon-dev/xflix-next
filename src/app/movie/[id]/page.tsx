@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { cache } from 'react'
 
 import {
   DeferredWrapper,
@@ -13,9 +12,9 @@ import { getMovie } from '@/entities/movie'
 
 const DETAIL_QUERY = { append_to_response: 'credits' }
 
-const getMovieData = cache(async (id: string) => {
+const getMovieData = async (id: string) => {
   return await getMovie(id, DETAIL_QUERY)
-})
+}
 
 export async function generateMetadata({
   params,
@@ -32,7 +31,9 @@ export async function generateMetadata({
 
   return {
     title: movie?.title ?? '영화 상세',
-    description: movie?.overview ?? '영화 상세 페이지',
+    description:
+      movie?.overview ??
+      '영화의 상세 정보, 출연진, 평점, 줄거리를 XFlix에서 확인하세요.',
     keywords: movie?.genres?.map(genre => genre.name).join(', '),
     openGraph: {
       type: 'video.movie',
@@ -47,7 +48,7 @@ async function MovieDetail({ params }: { params: Promise<{ id: string }> }) {
 
   return (
     <>
-      <article>
+      <article key={id}>
         <MovieDetailSection movie={movie} error={error} />
         <CarouselShell
           type='movie'
