@@ -1,5 +1,5 @@
 interface IICONS {
-  [key: string]: JSX.Element
+  [key: string]: React.ReactNode
 }
 export const ICONS: IICONS = {
   logo: (
@@ -48,27 +48,16 @@ export const ICONS: IICONS = {
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <path
-        d='M6 9L12 15L18 9'
-        stroke='currentColor'
-      />
+      <path d='M6 9L12 15L18 9' stroke='currentColor' />
     </svg>
   ),
   leftArrow: (
-    <svg
-      xmlns='http://www.w3.org/2000/svg'
-      width='24'
-      height='24'
-    >
+    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'>
       <path d='M15.293 3.293 6.586 12l8.707 8.707 1.414-1.414L9.414 12l7.293-7.293-1.414-1.414z' />
     </svg>
   ),
   rightArrow: (
-    <svg
-      xmlns='http://www.w3.org/2000/svg'
-      width='24'
-      height='24'
-    >
+    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24'>
       <path d='M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z' />
     </svg>
   ),

@@ -1,5 +1,5 @@
 import { useInfiniteContents } from '@/entities/media'
-import type { BaseMedia } from '@/shared'
+import { BaseMedia } from '@/shared'
 
 type UseCarouselContentsParams = {
   endPoint: string

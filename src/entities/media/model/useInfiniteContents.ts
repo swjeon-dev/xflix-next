@@ -1,8 +1,17 @@
 import { useCallback, useMemo } from 'react'
 
-import { useInfinitePagination, usePaginatedList } from '@/shared'
+import { BaseMedia, useInfinitePagination, usePaginatedList } from '@/shared'
 import useGetContents from './useGetContents'
 
+type ReturnType<T extends BaseMedia> = {
+  loaderRef: (node: HTMLElement | null) => void
+  contents: T[]
+  isLoading: boolean
+  isFetchingMore: boolean
+  hasMore: boolean
+  error: string | null
+  refetch: () => void
+}
 type UseInfiniteContentsProps = {
   endPoint: string
   params?: Record<string, string | number | boolean>
@@ -10,19 +19,19 @@ type UseInfiniteContentsProps = {
   direction?: 'horizontal' | 'vertical'
 }
 
-function useInfiniteContents({
+function useInfiniteContents<T extends BaseMedia>({
   endPoint,
   params,
   scrollRef,
   direction = scrollRef ? 'horizontal' : 'vertical',
-}: UseInfiniteContentsProps) {
+}: UseInfiniteContentsProps): ReturnType<T> {
   const queryKey = JSON.stringify({ endPoint, params })
   const mode =
     direction === 'horizontal' ? 'horizontal-carousel' : 'vertical-list'
 
-  const pagination = usePaginatedList({ queryKey })
+  const pagination = usePaginatedList<T>({ queryKey })
 
-  const { isLoading, isFetching, error, contents, refetch } = useGetContents(
+  const { isLoading, isFetching, error, contents, refetch } = useGetContents<T>(
     endPoint,
     { ...params, page: pagination.page },
   )

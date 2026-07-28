@@ -3,10 +3,10 @@ import { useRef } from 'react'
 
 import { Carousel, type GenreCarouselProps } from '@/shared'
 import { TrailerOpenButton } from '@/features/trailer'
-import type { ITV } from '@/entities/tv'
 import { TVCard } from '@/entities/tv'
 
 import { useCarouselContents } from './model'
+import { ITV } from '@/entities/tv'
 
 function TVCarousel({ title, endPoint, params, genres }: GenreCarouselProps) {
   const scrollRef = useRef<HTMLUListElement>(null)
@@ -19,7 +19,7 @@ function TVCarousel({ title, endPoint, params, genres }: GenreCarouselProps) {
     })
 
   return (
-    <Carousel<ITV>
+    <Carousel
       title={title}
       items={contents}
       scrollRef={scrollRef}

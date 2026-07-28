@@ -1,5 +1,6 @@
+import { unstable_cache } from 'next/cache'
+
 import { API_ENDPOINT } from '../../config'
-import { devLog } from '../../lib'
 import { tmdbFetch } from './client'
 
 interface IAuthResponse {
@@ -8,23 +9,36 @@ interface IAuthResponse {
   success: boolean
 }
 
+export const isApiValid = unstable_cache(
+  async () => {
+    const { data, error } = await tmdbFetch<IAuthResponse>(
+      API_ENDPOINT.AUTH_VALID,
+      undefined,
+      'FAIL_API_AUTH',
+      { cache: 'no-store' },
+    )
+
+    if (error || !data?.success) {
+      throw new Error(error || 'FAIL_API_AUTH')
+    }
+
+    return data
+  },
+  ['api-valid-check'],
+  { revalidate: 3600 },
+)
+
 export async function apiValidCheck(): Promise<{
   data: IAuthResponse | null
   error: string | null
 }> {
   try {
-    const result = await tmdbFetch<IAuthResponse>(
-      API_ENDPOINT.AUTH_VALID,
-      undefined,
-      'API 인증 실패로 현재 서비스를 이용할 수 없습니다',
-    )
-
-    devLog({ message: 'API 인증 OK' })
-    return { data: result.data, error: result.error }
-  } catch (error: unknown) {
-    const errorMessage =
-      error instanceof Error ? error.message : 'Unknown Error'
-    devLog({ message: 'tmdbAuth 오류: ' + errorMessage, type: 'error' })
-    return { data: null, error: errorMessage }
+    const data = await isApiValid()
+    return { data, error: null }
+  } catch {
+    return {
+      data: null,
+      error: 'FAIL_API_AUTH',
+    }
   }
 }

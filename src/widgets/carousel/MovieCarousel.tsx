@@ -3,10 +3,10 @@ import { useRef } from 'react'
 
 import { Carousel, type GenreCarouselProps } from '@/shared'
 import { TrailerOpenButton } from '@/features/trailer'
-import type { IMovie } from '@/entities/movie'
 import { MovieCard } from '@/entities/movie'
 
 import { useCarouselContents } from './model'
+import { IMovie } from '@/entities/movie'
 
 function MovieCarousel({
   title,
@@ -24,7 +24,7 @@ function MovieCarousel({
     })
 
   return (
-    <Carousel<IMovie>
+    <Carousel
       title={title}
       items={contents}
       scrollRef={scrollRef}
@@ -36,7 +36,7 @@ function MovieCarousel({
       renderItem={movie => (
         <MovieCard
           key={`${movie.id}-movie-carousel`}
-          content={movie}
+          content={movie as IMovie}
           genres={genres ?? []}
           action={
             <TrailerOpenButton
