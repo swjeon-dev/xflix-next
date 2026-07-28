@@ -20,7 +20,7 @@ export default async function RootLayout({
   const auth = await apiValidCheck()
 
   if (auth.error) {
-    throw new Error(auth.error)
+    throw new Error('API_AUTH')
   }
 
   return (
