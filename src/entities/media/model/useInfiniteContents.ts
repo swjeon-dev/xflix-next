@@ -17,6 +17,7 @@ type UseInfiniteContentsProps = {
   params?: Record<string, string | number | boolean>
   scrollRef?: React.RefObject<HTMLUListElement | null>
   direction?: 'horizontal' | 'vertical'
+  enabled?: boolean
 }
 
 function useInfiniteContents<T extends BaseMedia>({
@@ -24,16 +25,18 @@ function useInfiniteContents<T extends BaseMedia>({
   params,
   scrollRef,
   direction = scrollRef ? 'horizontal' : 'vertical',
+  enabled = true,
 }: UseInfiniteContentsProps): ReturnType<T> {
   const queryKey = JSON.stringify({ endPoint, params })
   const mode =
     direction === 'horizontal' ? 'horizontal-carousel' : 'vertical-list'
 
-  const pagination = usePaginatedList<T>({ queryKey })
+  const pagination = usePaginatedList<T>({ queryKey, enabled })
 
   const { isLoading, isFetching, error, contents, refetch } = useGetContents<T>(
     endPoint,
     { ...params, page: pagination.page },
+    { enabled },
   )
 
   const fetchContents = useMemo(() => {
@@ -53,6 +56,7 @@ function useInfiniteContents<T extends BaseMedia>({
     pause: isLoading,
     isFetching,
     fetchContents,
+    enabled,
   })
 
   const handleRefetch = useCallback(() => {
@@ -63,10 +67,10 @@ function useInfiniteContents<T extends BaseMedia>({
   return {
     loaderRef,
     contents: pagination.items,
-    isLoading,
-    isFetchingMore: isFetching && pagination.page > 1,
+    isLoading: enabled && isLoading,
+    isFetchingMore: enabled && isFetching && pagination.page > 1,
     hasMore: pagination.hasMore,
-    error,
+    error: enabled ? error : null,
     refetch: handleRefetch,
   }
 }

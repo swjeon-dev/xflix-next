@@ -21,7 +21,9 @@ interface IFetchingDataReturn<T extends BaseMedia> {
 function useGetContents<T extends BaseMedia>(
   endPoint: string,
   queryParams?: QueryParams,
+  options?: { enabled?: boolean },
 ): IFetchingDataReturn<T> {
+  const enabled = options?.enabled ?? true
   const queryKey = queryParams ? JSON.stringify(queryParams) : ''
 
   const [error, setError] = useState<string | null>(null)
@@ -35,7 +37,7 @@ function useGetContents<T extends BaseMedia>(
   }, [])
 
   useEffect(() => {
-    if (!endPoint) {
+    if (!endPoint || !enabled) {
       setIsLoading(false)
       setIsFetching(false)
       setContents(null)
@@ -68,7 +70,7 @@ function useGetContents<T extends BaseMedia>(
     return () => {
       cancelled = true
     }
-  }, [endPoint, queryKey, refetchCount])
+  }, [endPoint, queryKey, refetchCount, enabled])
 
   return { error, isLoading, isFetching, contents, refetch }
 }
