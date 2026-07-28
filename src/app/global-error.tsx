@@ -8,10 +8,10 @@ export default function GlobalError({
   error: Error
   reset: () => void
 }) {
-  const isApiAuthError = error.message.includes('API_AUTH')
-  const message = isApiAuthError
-    ? '서비스 연결에 실패했습니다. API 인증을 확인해 주세요.'
-    : '페이지를 불러오는 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.'
+  const message = error.message.includes('FAIL_API_AUTH')
+    ? 'API 인증 실패로 현재 서비스를 이용할 수 없습니다'
+    : (error.message ??
+      '페이지를 불러오는 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.')
 
   return (
     <html lang='ko'>

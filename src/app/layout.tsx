@@ -17,10 +17,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const auth = await apiValidCheck()
+  const { error } = await apiValidCheck()
 
-  if (auth.error) {
-    throw new Error('API_AUTH')
+  if (error) {
+    throw new Error(error)
   }
 
   return (
