@@ -134,7 +134,7 @@ function Carousel<T extends BaseMedia>({
           )}
           <li
             ref={loaderRef}
-            className='shrink-0 w-px min-w-px self-stretch'
+            className='shrink-0 basis-4 w-4 self-stretch'
             aria-hidden
           />
         </ul>

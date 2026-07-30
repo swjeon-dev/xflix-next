@@ -66,7 +66,8 @@ function useInfinitePagination<T>({
     direction: preset.direction,
     threshold: 'threshold' in preset ? preset.threshold : undefined,
     rootMargin: 'rootMargin' in preset ? preset.rootMargin : undefined,
-    pause: isSearchMode ? pause || isFetching : pause,
+    // fetch 중 sentinel 관찰을 멈춰 loadMore↔isFetching 레이스를 줄인다
+    pause: pause || isFetching,
     watchKey: isSearchMode ? undefined : items.length,
   })
 
