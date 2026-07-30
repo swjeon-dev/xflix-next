@@ -7,7 +7,8 @@
 // - lazy(() => import('…')) 동적 import
 // - 허용 세그먼트에 대한 @/shared/<segment>/… deep import (점진 정리)
 // - app / pages 세그먼트 이름 (providers, routes 등) — 대상 아님
-// - 상대 경로로 다른 슬라이스를 가는 경우 (alias @/ 기준만 검사)
+// - 상대 경로로 다른 슬라이스를 가는 경우 (alias @/ 기준)
+// - 세그먼트 deep import(../model/foo 등)는 blockedDeepImportPaths로 검사
 
 // 슬라이스(entities/features/widgets) 허용 세그먼트
 const ALLOW_SEGMENTS = 'ui|model|api|lib|config|types'
@@ -66,6 +67,13 @@ const layerIndexPaths = [
   },
 ]
 
+const blockedDeepImportPaths = [
+  {
+    group: ['../model/*', '../lib/*', '../api/*', '../ui/*'],
+    message: '세그먼트 public API(../model, ../lib 등)를 사용하세요.',
+  },
+]
+
 // flat config에서 규칙이 덮어쓰이므로, 레이어 블록마다 공통 제한을 다시 넣습니다.
 function restrictedImports(extraPatterns = []) {
   return [
@@ -75,6 +83,7 @@ function restrictedImports(extraPatterns = []) {
         ...sliceDeepImportPatterns,
         ...allowedSegmentPatterns,
         ...extraPatterns,
+        ...blockedDeepImportPaths,
       ],
       paths: layerIndexPaths,
     },

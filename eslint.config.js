@@ -6,6 +6,8 @@ import tseslint from 'typescript-eslint'
 
 import fsdLite from './eslint.fsd.mjs'
 
+// flat config + FSD Lite (eslint.fsd.mjs)
+
 export default tseslint.config(
   { ignores: ['dist'] },
   {
