@@ -3,6 +3,8 @@ import type { SortBy } from '@/shared'
 type SortOption = 'latest' | 'popular' | 'rating'
 type MediaLabel = '영화' | 'TV'
 
+const DEFAULT_SORT: SortOption = 'popular'
+
 const SORT_OPTIONS: { key: SortOption; label: string }[] = [
   { key: 'latest', label: '최신순' },
   { key: 'popular', label: '추천순' },
@@ -23,11 +25,11 @@ function toSortBy(option: SortOption, media: MediaLabel): SortBy {
 }
 
 function resolveSort(sort?: string): SortOption {
-  if (sort === 'latest' || sort === 'rating' || sort === 'popular') {
-    return sort
-  }
-  return 'popular'
+  if (sort == null || sort === '') return DEFAULT_SORT
+
+  const matched = SORT_OPTIONS.find(option => option.key === sort)
+  return matched?.key ?? DEFAULT_SORT
 }
 
-export { SORT_OPTIONS, toSortBy, resolveSort }
+export { SORT_OPTIONS, DEFAULT_SORT, toSortBy, resolveSort }
 export type { SortOption }

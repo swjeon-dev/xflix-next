@@ -27,6 +27,17 @@ interface GenreGridListProps<T> {
   renderItem: (item: T) => React.ReactNode
 }
 
+function GenreGridEmpty() {
+  return (
+    <section className='main-page_px pb-20'>
+      {/* <h2 className='mb-6 text-xl font-bold text-white'>{listTitle}</h2> */}
+      <p className='py-16 text-center text-lg text-white/60'>
+        해당하는 작품이 없습니다.
+      </p>
+    </section>
+  )
+}
+
 function GenreGridList<T>({
   listTitle,
   items,
@@ -64,7 +75,9 @@ function GenreGridList<T>({
     )
   }
 
-  if (items.length === 0) return null
+  if (items.length === 0) {
+    return <GenreGridEmpty />
+  }
 
   return (
     <section className='main-page_px pb-20'>

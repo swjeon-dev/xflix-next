@@ -5,7 +5,7 @@ import { routes, type IGenre } from '@/shared'
 import { isMovie } from '@/entities/movie'
 import { isTV } from '@/entities/tv'
 
-import { type SortOption, toSortBy } from '../lib'
+import { DEFAULT_SORT, type SortOption, toSortBy } from '../lib'
 import { useGenreSection } from '../model'
 import GenreGridList from './GenreGridList'
 import GenreMovieCard from './GenreMovieCard'
@@ -31,7 +31,7 @@ function buildListPath(
   const params = new URLSearchParams()
 
   if (genreId !== 0) params.set('genre', String(genreId))
-  if (sort !== 'popular') params.set('sort', sort)
+  if (sort !== DEFAULT_SORT) params.set('sort', sort)
 
   const qs = params.toString()
   return qs ? `${base}?${qs}` : base

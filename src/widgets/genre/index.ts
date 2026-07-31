@@ -1,2 +1,2 @@
 export { GenreSection } from './ui'
-export { resolveSort, type SortOption } from './lib'
+export { resolveSort, resolveGenreId, type SortOption } from './lib'
