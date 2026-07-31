@@ -4,7 +4,7 @@ import type {
   SearchMediaType,
 } from '@/shared'
 
-import SearchTagLink from './SearchTagLink'
+import TagLink from './TagLink'
 
 interface MetaTagGroupProps {
   label: string
@@ -21,7 +21,7 @@ function MetaTagGroup({ label, filter, tags, type }: MetaTagGroupProps) {
       <h4 className='text-sm text-gray-400/80'>{label}</h4>
       <div className='flex flex-wrap gap-2'>
         {tags.map(tag => (
-          <SearchTagLink
+          <TagLink
             key={`${filter}-${tag.id}`}
             filter={filter}
             tag={tag}
