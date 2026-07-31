@@ -9,7 +9,7 @@ function useSearchResults({ term, type, filter, id }: SearchParams) {
   const personFilterResult = useFilterPerson({ filter, id, type })
 
   if (filter === 'genre') return genreFilterResult
-  if (filter === 'cast' || filter === 'crew') return personFilterResult
+  if (filter === 'person') return personFilterResult
   return searchResult
 }
 

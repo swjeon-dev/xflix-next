@@ -2,11 +2,10 @@
 import { useRouter } from 'next/navigation'
 
 import { routes, SearchMediaType } from '@/shared'
-import { SearchParams } from '../model/search.types'
 import SearchHeader from './SearchHeader'
 import { getSearchPageCopy, resolveSearchParams } from '../lib'
 import SearchList from './SearchList'
-import { useSearchResults } from '../model'
+import { useSearchResults, type SearchParams } from '../model'
 
 export default function SearchView({ params }: { params: SearchParams }) {
   const router = useRouter()

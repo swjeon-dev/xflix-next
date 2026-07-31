@@ -1,6 +1,6 @@
 import type {
   ISearchFilterTag,
-  SearchFilterKey,
+  SearchFilterType,
   SearchMediaType,
 } from '@/shared'
 
@@ -8,7 +8,7 @@ import SearchTagLink from './SearchTagLink'
 
 interface MetaTagGroupProps {
   label: string
-  filter: SearchFilterKey
+  filter: SearchFilterType
   tags: ISearchFilterTag[]
   type: SearchMediaType
 }

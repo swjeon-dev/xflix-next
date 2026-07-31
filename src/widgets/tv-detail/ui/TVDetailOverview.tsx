@@ -20,7 +20,7 @@ function TVDetailOverview({ tv, tvMoreInfo }: TVDetailOverviewProps) {
       <div className='flex w-full flex-col gap-4 md:w-1/4'>
         <MetaTagGroup
           label='출연'
-          filter='cast'
+          filter='person'
           tags={tvMoreInfo.actors}
           type='tv'
         />
@@ -32,7 +32,7 @@ function TVDetailOverview({ tv, tvMoreInfo }: TVDetailOverviewProps) {
         />
         <MetaTagGroup
           label='감독'
-          filter='crew'
+          filter='person'
           tags={tvMoreInfo.director ? [tvMoreInfo.director] : []}
           type='tv'
         />

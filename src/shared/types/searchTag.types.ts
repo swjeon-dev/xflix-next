@@ -1,10 +1,16 @@
 type SearchMediaType = 'movie' | 'tv'
+type MultiSearchMediaType = 'person' | SearchMediaType
 
-type SearchFilterKey = 'genre' | 'cast' | 'crew'
+type SearchFilterType = 'genre' | 'person'
 
 interface ISearchFilterTag {
   id: number
   name: string
 }
 
-export type { SearchMediaType, SearchFilterKey, ISearchFilterTag }
+export type {
+  SearchMediaType,
+  MultiSearchMediaType,
+  SearchFilterType,
+  ISearchFilterTag,
+}

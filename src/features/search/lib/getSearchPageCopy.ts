@@ -1,15 +1,10 @@
-import { SearchMediaType } from '@/shared'
-import type { SearchParams } from '../model/search.types'
-import { SEARCH_FILTER_LABELS } from './searchFilterLabels'
+import type { SearchParams } from '../model'
+import { FILTER_LABEL } from '../model'
 
 type SearchPageCopy = {
   pageTitle: string
   pageDescription: string
   emptyMessage: string
-}
-
-function getTabLabel(type: SearchMediaType) {
-  return type === 'movie' ? '영화' : 'TV'
 }
 
 function getSearchPageCopy({
@@ -18,8 +13,9 @@ function getSearchPageCopy({
   filter,
   label,
 }: SearchParams): SearchPageCopy {
-  const tabLabel = getTabLabel(type)
-  const filterTypeLabel = filter ? SEARCH_FILTER_LABELS[filter] : null
+  const tabLabel = type === 'movie' ? '영화' : 'TV'
+
+  const filterTypeLabel = filter ? FILTER_LABEL[filter] : null
 
   if (term) {
     return {

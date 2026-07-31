@@ -1,7 +1,6 @@
 import { SearchMediaType } from '@/shared'
 import SearchTabs from './SearchTabs'
-import { SearchParams } from '../model/search.types'
-import { SEARCH_FILTER_LABELS } from '../lib'
+import { SearchParams, getSearchSubtitle } from '../model'
 
 interface SearchHeaderProps extends SearchParams {
   changeType: (type: SearchMediaType) => void
@@ -15,14 +14,14 @@ function SearchHeader({
   filter,
   changeType,
 }: SearchHeaderProps) {
-  const subtitle = filter ? SEARCH_FILTER_LABELS[filter] : '검색 결과'
+  const subtitle = getSearchSubtitle({ term, filter })
   const title = term ?? label ?? '검색'
 
   return (
     <header className='mb-8 flex flex-col gap-4'>
-      <p className='text-sm text-white/50'>{subtitle ?? '검색 결과'}</p>
+      <p className='text-sm text-white/50'>{subtitle}</p>
       <h1 className='text-3xl font-semibold md:text-5xl'>
-        <span className='text-white/70'>{title ?? '검색'}</span>
+        <span className='text-white/70'>{title}</span>
       </h1>
       <SearchTabs selected={type} onSelect={changeType} />
     </header>

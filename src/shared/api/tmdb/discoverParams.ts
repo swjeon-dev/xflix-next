@@ -1,6 +1,5 @@
-// discover filter params (genre / cast / crew)
+// discover filter params (genre / person)
 type DiscoverMedia = 'movie' | 'tv'
-type DiscoverPersonRole = 'cast' | 'crew'
 type TVSortBy = 'first_air_date.desc' | 'popularity.desc' | 'vote_average.desc'
 type MovieSortBy =
   | 'popularity.desc'
@@ -37,15 +36,12 @@ function getDiscoverParams(
 
 function getDiscoverPersonParams(
   personId: number,
-  role: DiscoverPersonRole,
   sortBy: SortBy = 'popularity.desc',
   media: DiscoverMedia = 'movie',
 ) {
-  const key = role === 'cast' ? 'with_cast' : 'with_crew'
-
   return {
     ...buildDiscoverBase(media, sortBy),
-    [key]: String(personId),
+    with_people: String(personId),
   }
 }
 
@@ -58,4 +54,4 @@ export {
   getDiscoverPersonParams,
   getAllDiscoverParams,
 }
-export type { SortBy, DiscoverMedia, DiscoverPersonRole }
+export type { SortBy, DiscoverMedia }

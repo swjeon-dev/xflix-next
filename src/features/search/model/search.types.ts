@@ -1,11 +1,21 @@
-import type { SearchFilterKey, SearchMediaType } from '@/shared'
+import type { SearchFilterType, SearchMediaType } from '@/shared'
+
+type SearchSuggestKind = 'genre' | 'person' | 'title'
 
 type SearchParams = {
   type: SearchMediaType
   term?: string | null
-  filter?: SearchFilterKey | null
+  filter?: SearchFilterType | null
   id?: string | null
   label?: string | null
+}
+
+type SearchSuggestItem = {
+  kind: SearchSuggestKind
+  type: SearchMediaType
+  id: number
+  name: string
+  known_for_department?: string
 }
 
 interface ISearchResult {
@@ -41,6 +51,7 @@ interface ISearchData {
   original_title?: string
   release_date?: string
   video?: boolean
+  known_for_department?: string
 }
 
 export type {
@@ -48,4 +59,6 @@ export type {
   ISearchData,
   IUseSearchProps,
   SearchParams,
+  SearchSuggestKind,
+  SearchSuggestItem,
 }

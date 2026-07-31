@@ -23,7 +23,7 @@ function MovieDetailOverview({
       <div className='flex w-full flex-col gap-4 md:w-1/4'>
         <MetaTagGroup
           label='출연'
-          filter='cast'
+          filter='person'
           tags={movieMoreInfo.actors}
           type='movie'
         />
@@ -35,7 +35,7 @@ function MovieDetailOverview({
         />
         <MetaTagGroup
           label='감독'
-          filter='crew'
+          filter='person'
           tags={movieMoreInfo.director ? [movieMoreInfo.director] : []}
           type='movie'
         />

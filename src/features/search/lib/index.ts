@@ -1,5 +1,5 @@
 export * from './searchItem'
-export * from './searchFilterLabels'
 export * from './resolveSearchParams'
 export * from './toSearchListItem'
 export * from './getSearchPageCopy'
+export * from './suggestions'

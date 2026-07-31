@@ -49,6 +49,7 @@ export const API_ENDPOINT = {
   SEARCH_MOVIE: '/search/movie',
   SEARCH_TV: '/search/tv',
   SEARCH_PERSON: '/search/person',
+  MULTI_SEARCH: '/search/multi',
 } as const
 
 export type ApiPath = {

@@ -6,7 +6,7 @@ interface SearchModalWrapperProps {
 
 function SearchModalWrapper({ children }: SearchModalWrapperProps) {
   return (
-    <ModalWrapper className='w-full max-w-3xl'>{children}</ModalWrapper>
+    <ModalWrapper className='w-full max-w-2xl md:max-w-3xl'>{children}</ModalWrapper>
   )
 }
 

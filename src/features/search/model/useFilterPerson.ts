@@ -4,12 +4,11 @@ import type { SearchParams } from './search.types'
 import useDiscoverFilter from './useDiscoverFilter'
 
 function useFilterPerson({ filter, id, type }: SearchParams) {
-  const enabled =
-    (filter === 'cast' || filter === 'crew') && Boolean(id && type)
+  const enabled = filter === 'person' && Boolean(id && type)
 
   const params =
-    enabled && id && (filter === 'cast' || filter === 'crew')
-      ? getDiscoverPersonParams(Number(id), filter, 'popularity.desc', type)
+    enabled && id
+      ? getDiscoverPersonParams(Number(id), 'popularity.desc', type)
       : undefined
 
   return useDiscoverFilter({ enabled, type, params })

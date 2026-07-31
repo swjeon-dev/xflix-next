@@ -2,13 +2,13 @@ import Link from 'next/link'
 
 import { routes } from '@/shared'
 import type {
-  SearchFilterKey,
+  SearchFilterType,
   ISearchFilterTag,
   SearchMediaType,
 } from '@/shared'
 
 interface SearchTagLinkProps {
-  filter: SearchFilterKey
+  filter: SearchFilterType
   tag: ISearchFilterTag
   type: SearchMediaType
 }
