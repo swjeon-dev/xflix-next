@@ -1,5 +1,5 @@
 'use client'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import {
   buildDisplayGenres,
@@ -12,28 +12,32 @@ import { useInfiniteContents } from '@/entities/media'
 import { getDiscoverListParams, getDiscoverListTitle } from '../lib'
 
 interface UseGenreSectionParams {
-  genres: IGenre[]
+  genreList: IGenre[]
   endPoint: string
   allTitle: string
   fallbackTitle: string
   sortBy: SortBy
   media: DiscoverMedia
+  currentGenreId: number
 }
 
 function useGenreSection({
-  genres,
+  genreList,
   endPoint,
   allTitle,
   fallbackTitle,
   sortBy,
   media,
+  currentGenreId,
 }: UseGenreSectionParams) {
-  const [selected, setSelected] = useState(0)
-  const displayGenres = useMemo(() => buildDisplayGenres(genres), [genres])
+  const displayGenres = useMemo(
+    () => buildDisplayGenres(genreList),
+    [genreList],
+  )
 
-  const params = getDiscoverListParams(selected, sortBy, media)
+  const params = getDiscoverListParams(currentGenreId, sortBy, media)
   const listTitle = getDiscoverListTitle(
-    selected,
+    currentGenreId,
     displayGenres.lists,
     allTitle,
     fallbackTitle,
@@ -47,8 +51,6 @@ function useGenreSection({
     })
 
   return {
-    selected,
-    setSelected,
     displayGenres,
     listTitle,
     loaderRef,

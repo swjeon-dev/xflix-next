@@ -1,7 +1,7 @@
 'use client'
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
-import type { IGenre } from '@/shared'
+import { routes, type IGenre } from '@/shared'
 import { isMovie } from '@/entities/movie'
 import { isTV } from '@/entities/tv'
 
@@ -13,26 +13,43 @@ import GenreSortFilter from './GenreSortFilter'
 import GenreTVCard from './GenreTVCard'
 
 interface GenreSectionProps {
+  genreId: number
+  sort: SortOption
   label: '영화' | 'TV'
-  genres: IGenre[]
+  genreList: IGenre[]
   endPoint: string
   allTitle: string
   fallbackTitle: string
 }
 
+function buildListPath(
+  media: 'movie' | 'tv',
+  genreId: number,
+  sort: SortOption,
+) {
+  const base = media === 'movie' ? routes.MOVIE.LIST : routes.TV.LIST
+  const params = new URLSearchParams()
+
+  if (genreId !== 0) params.set('genre', String(genreId))
+  if (sort !== 'popular') params.set('sort', sort)
+
+  const qs = params.toString()
+  return qs ? `${base}?${qs}` : base
+}
+
 function GenreSection({
+  genreId,
+  sort,
   label,
-  genres,
+  genreList,
   endPoint,
   allTitle,
   fallbackTitle,
 }: GenreSectionProps) {
-  const [sortOption, setSortOption] = useState<SortOption>('popular')
-
+  const router = useRouter()
   const media = label === '영화' ? 'movie' : 'tv'
+
   const {
-    selected,
-    setSelected,
     displayGenres,
     listTitle,
     loaderRef,
@@ -42,12 +59,13 @@ function GenreSection({
     error,
     refetch,
   } = useGenreSection({
-    genres,
+    genreList,
     endPoint,
     allTitle,
     fallbackTitle,
-    sortBy: toSortBy(sortOption, label),
+    sortBy: toSortBy(sort, label),
     media,
+    currentGenreId: genreId,
   })
 
   return (
@@ -57,10 +75,12 @@ function GenreSection({
       </h1>
       <GenreSortFilter
         tabs={displayGenres.tabs}
-        selected={selected}
-        onSelect={setSelected}
-        sortOption={sortOption}
-        onSortChange={setSortOption}
+        selected={genreId}
+        onSelect={id => router.replace(buildListPath(media, id, sort))}
+        sortOption={sort}
+        onSortChange={next =>
+          router.replace(buildListPath(media, genreId, next))
+        }
       />
       <GenreGridList
         listTitle={listTitle}

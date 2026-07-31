@@ -1,7 +1,7 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 import { API_ENDPOINT, getGenres } from '@/shared'
-import { GenreSection } from '@/widgets/genre'
+import { GenreSection, resolveSort } from '@/widgets/genre'
 
 export const metadata: Metadata = {
   title: 'TV 목록',
@@ -10,14 +10,21 @@ export const metadata: Metadata = {
   keywords: 'TV, 목록, 장르, 드라마, XFlix',
 }
 
-export default async function TV() {
+export default async function TV({
+  searchParams,
+}: {
+  searchParams: Promise<{ genre?: string; sort?: string }>
+}) {
+  const { genre, sort } = await searchParams
   const { data: tvGenres } = await getGenres('tv')
 
   return (
     <section>
       <GenreSection
         label='TV'
-        genres={tvGenres ?? []}
+        genreId={genre ? Number(genre) : 0}
+        sort={resolveSort(sort)}
+        genreList={tvGenres ?? []}
         endPoint={API_ENDPOINT.TV_FILTERED}
         allTitle='전체 TV'
         fallbackTitle='TV'

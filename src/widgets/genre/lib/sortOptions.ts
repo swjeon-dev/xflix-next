@@ -22,5 +22,12 @@ function toSortBy(option: SortOption, media: MediaLabel): SortBy {
   }
 }
 
-export { SORT_OPTIONS, toSortBy }
+function resolveSort(sort?: string): SortOption {
+  if (sort === 'latest' || sort === 'rating' || sort === 'popular') {
+    return sort
+  }
+  return 'popular'
+}
+
+export { SORT_OPTIONS, toSortBy, resolveSort }
 export type { SortOption }
