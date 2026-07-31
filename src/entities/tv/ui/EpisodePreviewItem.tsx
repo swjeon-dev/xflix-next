@@ -1,5 +1,5 @@
 import { getTmdbImgPath } from '@/shared/lib'
-import type { IEpisode } from '../model/season.types'
+import type { IEpisode } from '../model'
 
 export function EpisodePreviewItem({
   episode,

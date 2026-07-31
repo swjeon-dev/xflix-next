@@ -11,7 +11,7 @@ function MobileNavigationModalWrapper({
 }: MobileNavigationModalWrapperProps) {
   return (
     <ModalWrapper
-      className='relative min-h-[60vh] justify-center font-medium'
+      className='relative h-full justify-center font-medium'
       aria-label='모바일 메뉴'
     >
       <ModalCloseButton
