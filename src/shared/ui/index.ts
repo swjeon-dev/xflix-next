@@ -1,6 +1,6 @@
 export { default as AdultUI } from './AdultUI'
 export { default as ImageLazyLoadUI } from './ImageLazyLoadUI'
-export { LoadingComponent, LoadingScreen, SkeletonUI } from './LoadingScreen'
+export { LoadingComponent, LoadingScreen, SkeletonUI } from './Loader'
 export { default as Carousel } from './Carousel'
 export { default as FloatingBackButton } from './FloatingBackButton'
 export { default as MetaTagGroup } from './MetaTagGroup'

@@ -8,7 +8,7 @@ import type {
   ScrollDirection,
   WrapperProps,
 } from '../types'
-import { SkeletonUI } from './LoadingScreen'
+import { SkeletonUI } from './Loader'
 import { ICONS } from '../assets'
 import { devLog } from '../lib'
 
