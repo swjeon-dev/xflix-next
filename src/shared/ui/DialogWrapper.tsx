@@ -1,12 +1,12 @@
 'use client'
-import { useEffect, useRef, ReactNode } from 'react'
+import { useEffect, useRef } from 'react'
 
-import { cn } from '@/shared'
+import { cn, useBodyScrollLock } from '@/shared'
 
 interface DialogWrapperProps {
   isOpen: boolean
   onClose: () => void
-  children: ReactNode
+  children: React.ReactNode
   className?: string
 }
 
@@ -20,6 +20,8 @@ function DialogWrapper({
   className = '',
 }: DialogWrapperProps) {
   const dialogRef = useRef<HTMLDialogElement>(null)
+
+  useBodyScrollLock(isOpen)
 
   useEffect(() => {
     const dialog = dialogRef.current
