@@ -1,5 +1,5 @@
 import type { SearchParams } from '../model'
-import { FILTER_LABEL } from '../model'
+import { FILTER_LABEL } from './searchFilterLabel'
 
 type SearchPageCopy = {
   pageTitle: string
@@ -7,7 +7,7 @@ type SearchPageCopy = {
   emptyMessage: string
 }
 
-function getSearchPageCopy({
+function searchPageCopy({
   type,
   term,
   filter,
@@ -41,4 +41,4 @@ function getSearchPageCopy({
 }
 
 export type { SearchPageCopy }
-export { getSearchPageCopy }
+export { searchPageCopy }

@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
 import { getTmdbImgPath, AdultUI, type SearchMediaType } from '@/shared'
-import { searchItemDetailPath, searchItemTitle, searchItemYear } from '../lib'
-import type { ISearchData } from '../model'
+import { searchItemTitle, searchItemYear } from '../lib'
+import { getSearchDetailPath, type ISearchData } from '../model'
 
 interface SearchCardProps {
   type: SearchMediaType
@@ -12,7 +12,7 @@ interface SearchCardProps {
 function SearchCard({ type, item }: SearchCardProps) {
   const title = searchItemTitle(type, item)
   const year = searchItemYear(item)
-  const detailPath = searchItemDetailPath(type, item)
+  const detailPath = getSearchDetailPath(type, item)
 
   const posterUrl = getTmdbImgPath({
     path: item.poster_path,

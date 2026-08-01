@@ -5,7 +5,7 @@ import { useInfiniteContents } from '@/entities/media'
 import type { IMovie } from '@/entities/movie'
 import type { ITV } from '@/entities/tv'
 import { API_ENDPOINT, type SearchMediaType } from '@/shared'
-import { toSearchListItem } from '../lib'
+import { toSearchListItem } from './toSearchListItem'
 
 type UseDiscoverFilterProps = {
   enabled: boolean

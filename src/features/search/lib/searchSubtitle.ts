@@ -1,7 +1,7 @@
-import { SearchParams } from './search.types'
+import type { SearchParams } from '../model'
 import { FILTER_LABEL } from './searchFilterLabel'
 
-function getSearchSubtitle({
+function searchSubtitle({
   term,
   filter,
 }: Pick<SearchParams, 'term' | 'filter'>) {
@@ -10,4 +10,4 @@ function getSearchSubtitle({
   return '검색'
 }
 
-export { getSearchSubtitle }
+export { searchSubtitle }

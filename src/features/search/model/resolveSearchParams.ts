@@ -1,5 +1,5 @@
 import type { SearchFilterType, SearchMediaType } from '@/shared'
-import type { SearchParams } from '../model'
+import type { SearchParams } from './search.types'
 
 function normalizeSearchFilter(
   filter: string | null | undefined,

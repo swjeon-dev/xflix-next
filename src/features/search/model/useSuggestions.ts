@@ -1,10 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-import { getSuggestions } from '../lib'
+import { getSuggestions } from '../api'
 import type { SearchSuggestItem } from './search.types'
 
-export function useSuggestions(search: string): {
+function useSuggestions(search: string): {
   suggestions: SearchSuggestItem[]
   isLoading: boolean
 } {
@@ -40,3 +40,5 @@ export function useSuggestions(search: string): {
 
   return { suggestions, isLoading }
 }
+
+export default useSuggestions

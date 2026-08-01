@@ -1,6 +1,6 @@
 import { isMovie, type IMovie } from '@/entities/movie'
 import type { ITV } from '@/entities/tv'
-import type { ISearchData } from '../model'
+import type { ISearchData } from './search.types'
 
 function toSearchListItem(item: IMovie | ITV): ISearchData {
   if (isMovie(item)) {

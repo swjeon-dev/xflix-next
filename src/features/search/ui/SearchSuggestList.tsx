@@ -1,6 +1,6 @@
 'use client'
+import { suggestKindLabel, suggestTypeLabel } from '../lib'
 import type { SearchSuggestItem } from '../model'
-import { getSuggestKindLabel, getSuggestTypeLabel } from '../model'
 
 interface SearchSuggestListProps {
   items: SearchSuggestItem[]
@@ -27,7 +27,7 @@ function SearchSuggestList({
         </li>
       ) : (
         items.map(item => {
-          const typeLabel = getSuggestTypeLabel(item)
+          const typeLabel = suggestTypeLabel(item)
 
           return (
             <li key={`${item.kind}-${item.type}-${item.id}-${item.name}`}>
@@ -40,7 +40,7 @@ function SearchSuggestList({
                 <span className='truncate font-medium'>{item.name}</span>
                 <span className='shrink-0 text-xs md:text-sm'>
                   <span className='text-white/50'>
-                    {getSuggestKindLabel(item)}
+                    {suggestKindLabel(item)}
                   </span>
                   {typeLabel && (
                     <span className='ml-1.5 text-white/30'>{typeLabel}</span>

@@ -1,6 +1,7 @@
 import { SearchMediaType } from '@/shared'
 import SearchTabs from './SearchTabs'
-import { SearchParams, getSearchSubtitle } from '../model'
+import type { SearchParams } from '../model'
+import { searchSubtitle } from '../lib'
 
 interface SearchHeaderProps extends SearchParams {
   changeType: (type: SearchMediaType) => void
@@ -14,7 +15,7 @@ function SearchHeader({
   filter,
   changeType,
 }: SearchHeaderProps) {
-  const subtitle = getSearchSubtitle({ term, filter })
+  const subtitle = searchSubtitle({ term, filter })
   const title = term ?? label ?? '검색'
 
   return (

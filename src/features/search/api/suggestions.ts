@@ -1,5 +1,5 @@
 import { getGenres } from '@/shared'
-import { getMultiSearch } from '../api'
+import { getMultiSearch } from './search'
 import type { SearchSuggestItem } from '../model'
 
 async function matchGenre(term: string): Promise<SearchSuggestItem[]> {

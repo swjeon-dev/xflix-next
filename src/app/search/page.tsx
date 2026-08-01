@@ -1,7 +1,7 @@
 import {
-  getSearchPageCopy,
+  searchPageCopy,
   resolveSearchParams,
-  SearchParams,
+  type SearchParams,
   SearchView,
 } from '@/features/search'
 
@@ -10,7 +10,7 @@ export async function generateMetadata({ searchParams }: SearchPageProps) {
   const resolved = resolveSearchParams(params)
   const { type, term, filter, id, label } = resolved
 
-  const { pageTitle, pageDescription } = getSearchPageCopy({
+  const { pageTitle, pageDescription } = searchPageCopy({
     type,
     term,
     filter,
@@ -32,5 +32,8 @@ interface SearchPageProps {
 export default async function Search({ searchParams }: SearchPageProps) {
   const params = await searchParams
 
-  return <SearchView params={params} />
+  const resolved = resolveSearchParams(params)
+  const { emptyMessage } = searchPageCopy(resolved)
+
+  return <SearchView params={resolved} emptyMessage={emptyMessage} />
 }

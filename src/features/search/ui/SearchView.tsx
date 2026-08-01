@@ -3,24 +3,26 @@ import { useRouter } from 'next/navigation'
 
 import { routes, SearchMediaType } from '@/shared'
 import SearchHeader from './SearchHeader'
-import { getSearchPageCopy, resolveSearchParams } from '../lib'
 import SearchList from './SearchList'
-import { useSearchResults, type SearchParams } from '../model'
+import { useSearchResults } from '../model'
+import type { SearchParams } from '../model'
 
-export default function SearchView({ params }: { params: SearchParams }) {
+export default function SearchView({
+  params,
+  emptyMessage,
+}: {
+  params: SearchParams
+  emptyMessage: string
+}) {
   const router = useRouter()
 
-  const resolved = resolveSearchParams(params)
-
-  const { emptyMessage } = getSearchPageCopy(resolved)
-
   const { items, isLoading, isFetchingMore, error, loaderRef, refetch } =
-    useSearchResults(resolved)
+    useSearchResults(params)
 
   function changeType(newType: SearchMediaType) {
     const newParams: Record<string, string> = { type: newType }
 
-    for (const [key, value] of Object.entries(resolved)) {
+    for (const [key, value] of Object.entries(params)) {
       if (typeof value === 'string' && key !== 'type') {
         newParams[key] = value
       }
@@ -31,10 +33,10 @@ export default function SearchView({ params }: { params: SearchParams }) {
 
   return (
     <section className='min-h-screen pb-20 pt-24 text-white main-page_px'>
-      <SearchHeader {...resolved} changeType={changeType} />
+      <SearchHeader {...params} changeType={changeType} />
 
       <SearchList
-        type={resolved.type}
+        type={params.type}
         items={items}
         isLoading={isLoading}
         isFetchingMore={isFetchingMore}
