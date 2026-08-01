@@ -1,4 +1,4 @@
-import type { MediaVideoType } from '../model/video.types'
+import type { MediaVideoType } from '../model'
 import TrailerModalWrapper from './TrailerModalWrapper'
 import TrailerModalContents from './TrailerModalContents'
 

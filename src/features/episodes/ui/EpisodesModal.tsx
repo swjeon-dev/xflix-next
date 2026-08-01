@@ -1,7 +1,7 @@
 'use client'
 import type { IEpisode } from '@/entities/tv'
 
-import useEpisode from '../model/useEpisode'
+import { useEpisode } from '../model'
 import EpisodeModalContents from './EpisodeModalContents'
 import EpisodeModalWrapper from './EpisodeModalWrapper'
 

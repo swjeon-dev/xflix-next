@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
 
-import { extractYoutubeVideoKey } from '../lib/youtubeVideo'
+import { extractYoutubeVideoKey } from '../lib'
 import { getYoutubePlayerVars, loadYoutubeIframeApi } from '../lib'
 
 const UNAVAILABLE_ERROR_CODES = new Set([2, 5, 100, 101, 150])

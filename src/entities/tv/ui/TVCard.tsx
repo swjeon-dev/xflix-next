@@ -7,7 +7,7 @@ import {
   genreFiltered,
   type IGenre,
 } from '@/shared'
-import type { ITV } from '../model/tv.types'
+import type { ITV } from '../model'
 
 interface TVCardProps {
   content: ITV

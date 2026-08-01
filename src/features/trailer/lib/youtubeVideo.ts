@@ -1,4 +1,4 @@
-import type { IVideo } from '../model/video.types'
+import type { IVideo } from '../model'
 import {
   buildYoutubeEmbedUrl,
   type YoutubeEmbedVariant,

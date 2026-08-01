@@ -1,4 +1,4 @@
-import type { ITV } from '../model/tv.types'
+import type { ITV } from '../model'
 import {
   type IApiReturn,
   type QueryParams,

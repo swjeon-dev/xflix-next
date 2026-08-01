@@ -2,7 +2,7 @@
 
 import { cn } from '@/shared'
 import { type YoutubeEmbedVariant } from '../lib'
-import useYoutubePlayer from '../model/useYoutubePlayer'
+import { useYoutubePlayer } from '../model'
 
 interface YoutubePlayerProps {
   title: string

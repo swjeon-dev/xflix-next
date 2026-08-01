@@ -5,7 +5,7 @@ import {
   API_ENDPOINT,
 } from '@/shared'
 
-import type { IVideoReturn, MediaVideoType } from '../model/video.types'
+import type { IVideoReturn, MediaVideoType } from '../model'
 
 function getVideosEndpoint(id: string, mediaType: MediaVideoType) {
   return mediaType === 'movie'
