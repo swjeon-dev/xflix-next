@@ -27,6 +27,7 @@ export async function tmdbFetch<T>(
 ): Promise<IApiReturn<T>> {
   try {
     const response = await fetch(buildUrl(endpoint, query), {
+      ...(!fetchOptions && { next: { revalidate: 60 } }),
       ...API_CONFIG.OPTIONS,
       ...fetchOptions,
     })

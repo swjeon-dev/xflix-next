@@ -40,3 +40,41 @@ export const getMultiSearch = async (
 
   return { data: result.data.results ?? [], error: null }
 }
+
+export const getSearchByPerson = async (
+  id: string,
+  type: SearchMediaType,
+): Promise<IApiReturn<ISearchData[]>> => {
+  const result = await tmdbFetch<{ cast: ISearchData[]; crew: ISearchData[] }>(
+    type === 'movie'
+      ? API_ENDPOINT.MOVIE_SEARCH_BY_PERSON(id)
+      : API_ENDPOINT.TV_SEARCH_BY_PERSON(id),
+    undefined,
+    '검색 결과를 찾을 수 없습니다.',
+  )
+
+  if (result.error || !result.data) {
+    return { data: null, error: result.error }
+  }
+
+  const { cast, crew } = result.data
+
+  const uniqueCast = cast.filter(
+    (item, idx) => cast.findIndex(c => c.id === item.id) === idx,
+  )
+  const uniqueCrew = crew.filter(
+    (item, idx) => crew.findIndex(c => c.id === item.id) === idx,
+  )
+
+  const data = [
+    ...uniqueCast,
+    ...uniqueCrew.filter(item => !uniqueCast.some(c => c.id === item.id)),
+  ].sort((a, b) => {
+    if (type === 'movie') {
+      return b.release_date?.localeCompare(a.release_date ?? '') ?? 0
+    } else {
+      return b.first_air_date?.localeCompare(a.first_air_date ?? '') ?? 0
+    }
+  })
+  return { data: data ?? [], error: null }
+}

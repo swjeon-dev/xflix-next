@@ -16,14 +16,3 @@ export const getMovie = async (
     '현재 영화를 찾을 수 없습니다.',
   )
 }
-
-export const getMovieList = async (
-  endPoint: string,
-  queryParams?: QueryParams,
-): Promise<IApiReturn<IMovie[]>> => {
-  return tmdbFetch<IMovie[]>(
-    endPoint,
-    queryParams,
-    '현재 영화 목록을 찾을 수 없습니다.',
-  )
-}

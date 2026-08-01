@@ -34,24 +34,9 @@ function getDiscoverParams(
   }
 }
 
-function getDiscoverPersonParams(
-  personId: number,
-  sortBy: SortBy = 'popularity.desc',
-  media: DiscoverMedia = 'movie',
-) {
-  return {
-    ...buildDiscoverBase(media, sortBy),
-    with_people: String(personId),
-  }
-}
-
 function getAllDiscoverParams(sortBy: SortBy, media: DiscoverMedia = 'movie') {
   return buildDiscoverBase(media, sortBy)
 }
 
-export {
-  getDiscoverParams,
-  getDiscoverPersonParams,
-  getAllDiscoverParams,
-}
+export { getDiscoverParams, getAllDiscoverParams }
 export type { SortBy, DiscoverMedia }

@@ -45,6 +45,9 @@ export const API_ENDPOINT = {
 
   MOVIE_FILTERED: '/discover/movie',
   TV_FILTERED: '/discover/tv',
+  MOVIE_SEARCH_BY_PERSON: (personId: string) =>
+    `/person/${personId}/movie_credits`,
+  TV_SEARCH_BY_PERSON: (personId: string) => `/person/${personId}/tv_credits`,
 
   SEARCH_MOVIE: '/search/movie',
   SEARCH_TV: '/search/tv',
