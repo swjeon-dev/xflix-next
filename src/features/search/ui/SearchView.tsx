@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
 
-import { routes, SearchMediaType } from '@/shared'
+import { routes, MediaType } from '@/shared'
 import SearchHeader from './SearchHeader'
 import SearchList from './SearchList'
 import { useSearchResults } from '../model'
@@ -19,7 +19,7 @@ export default function SearchView({
   const { items, isLoading, isFetchingMore, error, loaderRef, refetch } =
     useSearchResults(params)
 
-  function changeType(newType: SearchMediaType) {
+  function changeType(newType: MediaType) {
     const newParams: Record<string, string> = { type: newType }
 
     for (const [key, value] of Object.entries(params)) {

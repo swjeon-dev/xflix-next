@@ -1,10 +1,10 @@
-import { SearchMediaType } from '@/shared'
+import { MediaType } from '@/shared'
 import SearchTabs from './SearchTabs'
 import type { SearchParams } from '../model'
 import { searchSubtitle } from '../lib'
 
 interface SearchHeaderProps extends SearchParams {
-  changeType: (type: SearchMediaType) => void
+  changeType: (type: MediaType) => void
 }
 
 // 영화 or tv 필터 변경

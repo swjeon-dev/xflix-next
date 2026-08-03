@@ -1,9 +1,9 @@
-import type { SearchFilterType, SearchMediaType } from '@/shared'
-import type { SearchParams } from './search.types'
+import type { FilterType, MediaType } from '@/shared'
+import type { SearchParams } from '../model'
 
 function normalizeSearchFilter(
   filter: string | null | undefined,
-): SearchFilterType | null {
+): FilterType | null {
   if (filter === 'genre') return 'genre'
   // cast/crew → person (with_people 통합, 구 URL 호환)
   if (filter === 'person' || filter === 'cast' || filter === 'crew') {
@@ -12,9 +12,7 @@ function normalizeSearchFilter(
   return null
 }
 
-function normalizeSearchMediaType(
-  type: string | null | undefined,
-): SearchMediaType {
+function normalizeSearchMediaType(type: string | null | undefined): MediaType {
   return type === 'tv' ? 'tv' : 'movie'
 }
 

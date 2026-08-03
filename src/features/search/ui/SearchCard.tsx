@@ -1,11 +1,11 @@
 import Link from 'next/link'
 
-import { getTmdbImgPath, AdultUI, type SearchMediaType } from '@/shared'
+import { getTmdbImgPath, AdultUI, type MediaType } from '@/shared'
 import { searchItemTitle, searchItemYear } from '../lib'
 import { getSearchDetailPath, type ISearchData } from '../model'
 
 interface SearchCardProps {
-  type: SearchMediaType
+  type: MediaType
   item: ISearchData
 }
 

@@ -1,16 +1,12 @@
-import type {
-  ISearchFilterTag,
-  SearchFilterType,
-  SearchMediaType,
-} from '@/shared'
+import type { IFilterTag, FilterType, MediaType } from '@/shared'
 
 import TagLink from './TagLink'
 
 interface MetaTagGroupProps {
   label: string
-  filter: SearchFilterType
-  tags: ISearchFilterTag[]
-  type: SearchMediaType
+  filter: FilterType
+  tags: IFilterTag[]
+  type: MediaType
 }
 
 function MetaTagGroup({ label, filter, tags, type }: MetaTagGroupProps) {

@@ -29,4 +29,44 @@ interface KnownFor {
   origin_country: string[]
 }
 
-export type { IPerson }
+type PersonMovieCredit = {
+  id: number
+  adult: boolean
+  title: string
+  original_title?: string
+  poster_path: string | null
+  release_date: string
+  popularity: number
+  character?: string
+  credit_id?: string
+  job?: string
+  department?: string
+}
+
+type PersonTvCredit = {
+  id: number
+  name: string
+  first_air_date: string
+  poster_path: string | null
+  popularity: number
+  character?: string
+  credit_id?: string
+  job?: string
+  department?: string
+}
+
+type PersonCredit = PersonMovieCredit | PersonTvCredit
+
+type PersonCredits<T extends PersonCredit = PersonCredit> = {
+  id: number
+  cast: T[]
+  crew: T[]
+}
+
+export type {
+  IPerson,
+  PersonMovieCredit,
+  PersonTvCredit,
+  PersonCredits,
+  PersonCredit,
+}

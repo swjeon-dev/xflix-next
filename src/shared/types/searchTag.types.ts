@@ -1,16 +1,11 @@
-type SearchMediaType = 'movie' | 'tv'
-type MultiSearchMediaType = 'person' | SearchMediaType
+type MediaType = 'movie' | 'tv'
+type MultiMediaType = 'person' | MediaType
 
-type SearchFilterType = 'genre' | 'person'
+type FilterType = 'genre' | 'person'
 
-interface ISearchFilterTag {
+interface IFilterTag {
   id: number
   name: string
 }
 
-export type {
-  SearchMediaType,
-  MultiSearchMediaType,
-  SearchFilterType,
-  ISearchFilterTag,
-}
+export type { MediaType, MultiMediaType, FilterType, IFilterTag }

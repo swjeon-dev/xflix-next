@@ -1,8 +1,9 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 
+import { getSearchByPerson } from '@/entities/person'
 import type { ISearchData, SearchParams } from './search.types'
-import { getSearchByPerson } from '../api'
+import { toPersonCreditSearchItem } from './toPersonCreditSearchItem'
 
 function useFilterPerson({ filter, id, type }: SearchParams) {
   const [items, setItems] = useState<ISearchData[]>([])
@@ -10,6 +11,7 @@ function useFilterPerson({ filter, id, type }: SearchParams) {
   const [error, setError] = useState<string | null>(null)
   const [refetchCount, setRefetchCount] = useState(0)
 
+  const enabled = filter === 'person' && Boolean(id) && Boolean(type)
   const queryKey = `${filter}-${id}-${type}`
   const prevQueryKey = useRef(queryKey)
 
@@ -20,19 +22,22 @@ function useFilterPerson({ filter, id, type }: SearchParams) {
   }
 
   useEffect(() => {
-    if (filter !== 'person' || !id || !type) {
+    if (!enabled || !id) {
       setIsLoading(false)
       return
     }
 
+    const personId = id
     let cancelled = false
+
     async function fetchItems() {
       setIsLoading(true)
 
-      const { data, error } = await getSearchByPerson(id!, type)
+      const { data, error } = await getSearchByPerson({ id: personId, type })
 
       if (cancelled) return
-      setItems(data ?? [])
+
+      setItems(data ? data.map(toPersonCreditSearchItem) : [])
       setError(error)
       setIsLoading(false)
     }
@@ -42,7 +47,7 @@ function useFilterPerson({ filter, id, type }: SearchParams) {
     return () => {
       cancelled = true
     }
-  }, [filter, id, type, refetchCount, queryKey])
+  }, [enabled, id, type, refetchCount, queryKey])
 
   return {
     items,

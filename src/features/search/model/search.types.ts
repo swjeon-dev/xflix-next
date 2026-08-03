@@ -1,18 +1,18 @@
-import type { SearchFilterType, SearchMediaType } from '@/shared'
+import type { FilterType, MediaType } from '@/shared'
 
 type SearchSuggestKind = 'genre' | 'person' | 'title'
 
 type SearchParams = {
-  type: SearchMediaType
+  type: MediaType
   term?: string | null
-  filter?: SearchFilterType | null
+  filter?: FilterType | null
   id?: string | null
   label?: string | null
 }
 
 type SearchSuggestItem = {
   kind: SearchSuggestKind
-  type: SearchMediaType
+  type: MediaType
   id: number
   name: string
   known_for_department?: string
@@ -27,7 +27,7 @@ interface ISearchResult {
 
 interface IUseSearchProps {
   term: string | null | undefined
-  type: SearchMediaType
+  type: MediaType
 }
 
 interface ISearchData {

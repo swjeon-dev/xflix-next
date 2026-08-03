@@ -4,12 +4,12 @@ import { useMemo } from 'react'
 import { useInfiniteContents } from '@/entities/media'
 import type { IMovie } from '@/entities/movie'
 import type { ITV } from '@/entities/tv'
-import { API_ENDPOINT, type SearchMediaType } from '@/shared'
+import { API_ENDPOINT, type MediaType } from '@/shared'
 import { toSearchListItem } from './toSearchListItem'
 
 type UseDiscoverFilterProps = {
   enabled: boolean
-  type: SearchMediaType
+  type: MediaType
   params?: Record<string, string | number | boolean>
 }
 

@@ -1,16 +1,12 @@
 import Link from 'next/link'
 
 import { routes } from '@/shared'
-import type {
-  SearchFilterType,
-  ISearchFilterTag,
-  SearchMediaType,
-} from '@/shared'
+import type { FilterType, IFilterTag, MediaType } from '@/shared'
 
 interface TagLinkProps {
-  filter: SearchFilterType
-  tag: ISearchFilterTag
-  type: SearchMediaType
+  filter: FilterType
+  tag: IFilterTag
+  type: MediaType
 }
 
 const LINK_CLASS_NAME =
