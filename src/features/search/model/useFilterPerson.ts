@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { getSearchByPerson } from '@/entities/person'
 import type { ISearchData, SearchParams } from './search.types'
-import { toPersonCreditSearchItem } from './toPersonCreditSearchItem'
+import { toSearchListItem } from './toSearchListItem'
 
 function useFilterPerson({ filter, id, type }: SearchParams) {
   const [items, setItems] = useState<ISearchData[]>([])
@@ -37,7 +37,7 @@ function useFilterPerson({ filter, id, type }: SearchParams) {
 
       if (cancelled) return
 
-      setItems(data ? data.map(toPersonCreditSearchItem) : [])
+      setItems(data ? data.map(toSearchListItem) : [])
       setError(error)
       setIsLoading(false)
     }

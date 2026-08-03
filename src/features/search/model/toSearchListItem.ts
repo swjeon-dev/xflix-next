@@ -1,9 +1,28 @@
-import { isMovie, type IMovie } from '@/entities/movie'
-import type { ITV } from '@/entities/tv'
 import type { ISearchData } from './search.types'
 
-function toSearchListItem(item: IMovie | ITV): ISearchData {
-  if (isMovie(item)) {
+type SearchListMovieSource = {
+  id: number
+  adult: boolean
+  title: string
+  original_title?: string
+  poster_path: string | null
+  release_date: string
+  popularity: number
+}
+type SearchListTvSource = {
+  id: number
+  adult?: boolean
+  name: string
+  original_name?: string
+  poster_path: string | null
+  first_air_date: string
+  popularity: number
+}
+
+function toSearchListItem(
+  item: SearchListMovieSource | SearchListTvSource,
+): ISearchData {
+  if ('title' in item) {
     return {
       id: item.id,
       adult: item.adult,

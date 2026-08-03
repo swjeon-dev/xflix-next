@@ -1,10 +1,10 @@
 'use client'
 import { useMemo } from 'react'
 
+import { API_ENDPOINT, type MediaType } from '@/shared'
 import { useInfiniteContents } from '@/entities/media'
 import type { IMovie } from '@/entities/movie'
 import type { ITV } from '@/entities/tv'
-import { API_ENDPOINT, type MediaType } from '@/shared'
 import { toSearchListItem } from './toSearchListItem'
 
 type UseDiscoverFilterProps = {
@@ -18,16 +18,13 @@ function useDiscoverFilter({ enabled, type, params }: UseDiscoverFilterProps) {
     type === 'movie' ? API_ENDPOINT.MOVIE_FILTERED : API_ENDPOINT.TV_FILTERED
 
   const { contents, isLoading, isFetchingMore, error, loaderRef, refetch } =
-    useInfiniteContents({
+    useInfiniteContents<IMovie | ITV>({
       endPoint,
       params,
       enabled,
     })
 
-  const items = useMemo(
-    () => contents.map(item => toSearchListItem(item as IMovie | ITV)),
-    [contents],
-  )
+  const items = useMemo(() => contents.map(toSearchListItem), [contents])
 
   return {
     items,

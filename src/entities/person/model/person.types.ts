@@ -45,7 +45,9 @@ type PersonMovieCredit = {
 
 type PersonTvCredit = {
   id: number
+  adult: boolean
   name: string
+  original_name?: string
   first_air_date: string
   poster_path: string | null
   popularity: number
