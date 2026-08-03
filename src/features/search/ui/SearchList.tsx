@@ -1,9 +1,9 @@
-import { SkeletonUI, devLog, type SearchMediaType } from '@/shared'
+import { SkeletonUI, devLog, type MediaType } from '@/shared'
 import type { ISearchData } from '../model'
 import SearchCard from './SearchCard'
 
 interface SearchResultsProps {
-  type: SearchMediaType
+  type: MediaType
   items: ISearchData[]
   isLoading: boolean
   isFetchingMore: boolean

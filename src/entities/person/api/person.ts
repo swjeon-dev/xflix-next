@@ -2,36 +2,34 @@ import {
   API_ENDPOINT,
   tmdbFetch,
   type IApiReturn,
-  type ITmdbContents,
   type MediaType,
 } from '@/shared'
 import type {
-  IPerson,
   PersonCredits,
   PersonCredit,
   PersonMovieCredit,
   PersonTvCredit,
 } from '../model'
 
-async function getPerson(term: string): Promise<IApiReturn<IPerson[]>> {
-  const result = await tmdbFetch<ITmdbContents<IPerson>>(
-    API_ENDPOINT.SEARCH_PERSON,
-    {
-      query: term,
-    },
-    '검색 결과를 찾을 수 없습니다.',
-    { next: { revalidate: 60 } },
-  )
+// async function getPerson(term: string): Promise<IApiReturn<IPerson[]>> {
+//   const result = await tmdbFetch<ITmdbContents<IPerson>>(
+//     API_ENDPOINT.SEARCH_PERSON,
+//     {
+//       query: term,
+//     },
+//     '검색 결과를 찾을 수 없습니다.',
+//     { next: { revalidate: 60 } },
+//   )
 
-  if (result.error || !result.data?.results?.length) {
-    return {
-      data: null,
-      error: result.error ?? '올바르지 않은 응답 데이터 형식입니다.',
-    }
-  }
+//   if (result.error || !result.data?.results?.length) {
+//     return {
+//       data: null,
+//       error: result.error ?? '올바르지 않은 응답 데이터 형식입니다.',
+//     }
+//   }
 
-  return { data: result.data.results, error: null }
-}
+//   return { data: result.data.results, error: null }
+// }
 
 function mergeCredits<T extends PersonCredit>(cast: T[], crew: T[]): T[] {
   const uniqueCast = cast.filter(
@@ -95,4 +93,4 @@ async function getSearchByPerson({
   return { data, error: null }
 }
 
-export { getPerson, getSearchByPerson }
+export { getSearchByPerson }

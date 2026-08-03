@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { getSearch } from '../api'
-import type { SearchMediaType } from '@/shared'
+import type { MediaType } from '@/shared'
 import type { ISearchData } from './search.types'
 
 type SearchQueryResult = {
@@ -13,7 +13,7 @@ type SearchQueryResult = {
 
 type UseSearchQueryProps = {
   term: string
-  type: SearchMediaType
+  type: MediaType
   page: number
   enabled: boolean
 }

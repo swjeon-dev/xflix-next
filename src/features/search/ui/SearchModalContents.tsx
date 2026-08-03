@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 
 import { routes } from '@/shared'
 import SearchSuggestList from './SearchSuggestList'
-import { useSuggestions, type SearchSuggestItem } from '../model'
+import { useSuggestions } from '../model'
 
 interface SearchModalContentsProps {
   onClose: () => void
@@ -26,27 +26,11 @@ function SearchModalContents({ onClose }: SearchModalContentsProps) {
     router.push(routes.SEARCH.path({ term, type: 'movie' }))
   }
 
-  function onSelect(item: SearchSuggestItem) {
+  function onSelect(path: string) {
     setSearch('')
     onClose()
 
-    if (item.kind === 'title') {
-      router.push(
-        item.type === 'movie'
-          ? routes.MOVIE.DETAIL(item.id)
-          : routes.TV.DETAIL(item.id),
-      )
-      return
-    }
-
-    router.push(
-      routes.SEARCH.path({
-        type: item.type,
-        filter: item.kind,
-        id: item.id,
-        label: item.name,
-      }),
-    )
+    router.push(path)
   }
 
   return (

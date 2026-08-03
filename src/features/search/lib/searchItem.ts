@@ -1,7 +1,7 @@
-import { type SearchMediaType } from '@/shared'
+import { type MediaType } from '@/shared'
 import type { ISearchData } from '../model'
 
-function searchItemTitle(type: SearchMediaType, item: ISearchData) {
+function searchItemTitle(type: MediaType, item: ISearchData) {
   if (type === 'movie') {
     return item.title ?? item.original_title ?? '제목 없음'
   }

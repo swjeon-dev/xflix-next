@@ -1,0 +1,4 @@
+{
+  // 이 워크스페이스 권장 확장. 미설치 시 설치 안내만 하며, 린트를 직접 실행하지는 않습니다.
+  "recommendations": ["dbaeumer.vscode-eslint"]
+}

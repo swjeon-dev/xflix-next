@@ -1,16 +1,18 @@
-import type { SearchMediaType } from '@/shared'
+import Link from 'next/link'
 
-const SEARCH_TABS: { id: SearchMediaType; label: string }[] = [
+import { routes, type MediaType } from '@/shared'
+import type { SearchParams } from '../model'
+
+const SEARCH_TABS: { id: MediaType; label: string }[] = [
   { id: 'movie', label: '영화' },
   { id: 'tv', label: 'TV' },
 ]
+function SearchTabs({ params }: { params: SearchParams }) {
+  const { type } = params
 
-interface SearchTabsProps {
-  selected: SearchMediaType
-  onSelect: (type: SearchMediaType) => void
-}
+  const className =
+    'rounded-full border border-white/50 bg-gray-500/40 px-4 py-1.5 text-sm font-bold text-white transition-colors aria-selected:border-white aria-selected:bg-white aria-selected:text-gray-900'
 
-function SearchTabs({ selected, onSelect }: SearchTabsProps) {
   return (
     <div
       className='flex flex-wrap gap-2'
@@ -18,16 +20,16 @@ function SearchTabs({ selected, onSelect }: SearchTabsProps) {
       aria-label='검색 결과 유형'
     >
       {SEARCH_TABS.map(tab => (
-        <button
-          key={tab.id}
-          type='button'
+        <Link
           role='tab'
-          aria-selected={selected === tab.id}
-          className='rounded-full border border-white/50 bg-gray-500/40 px-4 py-1.5 text-sm font-bold text-white transition-colors aria-selected:border-white aria-selected:bg-white aria-selected:text-gray-900'
-          onClick={() => onSelect(tab.id)}
+          href={routes.SEARCH.path({ ...params, type: tab.id })}
+          key={tab.id}
+          aria-selected={type === tab.id}
+          className={className}
+          replace
         >
           {tab.label}
-        </button>
+        </Link>
       ))}
     </div>
   )

@@ -1,7 +1,5 @@
 'use client'
-import { useRouter } from 'next/navigation'
 
-import { routes, MediaType } from '@/shared'
 import SearchHeader from './SearchHeader'
 import SearchList from './SearchList'
 import { useSearchResults } from '../model'
@@ -14,26 +12,12 @@ export default function SearchView({
   params: SearchParams
   emptyMessage: string
 }) {
-  const router = useRouter()
-
   const { items, isLoading, isFetchingMore, error, loaderRef, refetch } =
     useSearchResults(params)
 
-  function changeType(newType: MediaType) {
-    const newParams: Record<string, string> = { type: newType }
-
-    for (const [key, value] of Object.entries(params)) {
-      if (typeof value === 'string' && key !== 'type') {
-        newParams[key] = value
-      }
-    }
-
-    router.replace(routes.SEARCH.path(newParams))
-  }
-
   return (
     <section className='min-h-screen pb-20 pt-24 text-white main-page_px'>
-      <SearchHeader {...params} changeType={changeType} />
+      <SearchHeader params={params} />
 
       <SearchList
         type={params.type}

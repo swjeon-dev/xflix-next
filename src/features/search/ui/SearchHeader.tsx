@@ -1,20 +1,10 @@
-import { MediaType } from '@/shared'
 import SearchTabs from './SearchTabs'
 import type { SearchParams } from '../model'
 import { searchSubtitle } from '../lib'
 
-interface SearchHeaderProps extends SearchParams {
-  changeType: (type: MediaType) => void
-}
-
 // 영화 or tv 필터 변경
-function SearchHeader({
-  type,
-  term,
-  label,
-  filter,
-  changeType,
-}: SearchHeaderProps) {
+function SearchHeader({ params }: { params: SearchParams }) {
+  const { term, label, filter } = params
   const subtitle = searchSubtitle({ term, filter })
   const title = term ?? label ?? '검색'
 
@@ -24,7 +14,7 @@ function SearchHeader({
       <h1 className='text-3xl font-semibold md:text-5xl'>
         <span className='text-white/70'>{title}</span>
       </h1>
-      <SearchTabs selected={type} onSelect={changeType} />
+      <SearchTabs params={params} />
     </header>
   )
 }
