@@ -1,0 +1,36 @@
+import { useEffect, useState } from 'react'
+import { validateLogin } from '../lib'
+import { ValidationError } from './auth.types'
+
+function useValidLogin() {
+  const [error, setError] = useState<ValidationError>(null)
+
+  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    const formData = new FormData(event.currentTarget)
+    const email = formData.get('email')
+    const password = formData.get('password')
+
+    const error = validateLogin(email, password)
+    setError(error)
+  }
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout | null = null
+
+    timer = setTimeout(() => {
+      setError(null)
+    }, 1500)
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+    }
+  }, [error])
+
+  return { error, handleSubmit }
+}
+
+export default useValidLogin

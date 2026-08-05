@@ -17,6 +17,7 @@ type ModalState =
   | { type: 'episodes'; props: EpisodesModalOpenProps; className?: string }
   | { type: 'search'; props?: undefined; className?: string }
   | { type: 'mobileNavigation'; props?: undefined; className?: string }
+  | { type: 'auth'; props?: undefined; className?: string }
 
 type ModalType = ModalState['type']
 

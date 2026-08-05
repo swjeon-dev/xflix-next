@@ -10,6 +10,7 @@ const TrailerModalLazy = lazy(
   () => import('@/features/trailer/ui/TrailerModal'),
 )
 const SearchModalLazy = lazy(() => import('@/features/search/ui/SearchModal'))
+const AuthModalLazy = lazy(() => import('@/features/auth/ui/AuthModal'))
 const EpisodesModalLazy = lazy(
   () => import('@/features/episodes/ui/EpisodesModal'),
 )
@@ -19,6 +20,7 @@ const MODAL_DIALOG_CLASS: Record<ModalType, string> = {
   search: 'items-start bg-black/90 pt-[20vh]',
   mobileNavigation: 'backdrop:bg-black/100 text-white p-0 md:p-0',
   episodes: '',
+  auth: '',
 }
 
 function ModalBody({
@@ -37,6 +39,8 @@ function ModalBody({
       return <SearchModalLazy onClose={onClose} />
     case 'mobileNavigation':
       return <MobileModalNavigation onClose={onClose} />
+    case 'auth':
+      return <AuthModalLazy onClose={onClose} />
   }
 }
 
