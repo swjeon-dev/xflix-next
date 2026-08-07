@@ -3,8 +3,6 @@ import { SOCIAL_PROVIDERS, type SocialProviderId } from '../config'
 
 const PROVIDER_ICONS: Record<SocialProviderId, React.ReactNode> = {
   google: ICONS.google,
-  kakao: ICONS.kakao,
-  // apple: ICONS.apple,
   github: ICONS.github,
 }
 

@@ -1,5 +1,4 @@
-/** Supabase `signInWithOAuth({ provider })` 에 전달하는 provider id */
-export type SocialProviderId = 'google' | 'kakao' | 'github' // | 'apple'
+export type SocialProviderId = 'google' | 'github'
 
 export interface SocialProvider {
   id: SocialProviderId
@@ -16,16 +15,6 @@ export const SOCIAL_PROVIDERS: SocialProvider[] = [
     className:
       'bg-white text-zinc-900 hover:bg-zinc-100 border border-white/10',
   },
-  {
-    id: 'kakao',
-    name: '카카오',
-    className: 'bg-[#FEE500] text-[#191919] hover:bg-[#F5DC00]',
-  },
-  // {
-  //   id: 'apple',
-  //   label: 'Apple로 계속하기',
-  //   className: 'bg-white text-zinc-900 hover:bg-zinc-100',
-  // },
   {
     id: 'github',
     name: 'GitHub',

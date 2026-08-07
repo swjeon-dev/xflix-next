@@ -1,6 +1,8 @@
 'use client'
+
 import { type AuthType, useValidLogin } from '../model'
 import { INPUT_CLASS, BUTTON_PRIMARY, BUTTON_SECONDARY } from '../model'
+import ErrorMessage from './ErrorMessage'
 
 export default function LoginForm({
   onTypeChange,
@@ -8,13 +10,6 @@ export default function LoginForm({
   onTypeChange: (type: AuthType) => void
 }) {
   const { error, handleSubmit } = useValidLogin()
-
-  // 로그인 버튼, 서버 액션
-  // const router = useRouter()
-  // function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-  //   e.preventDefault()
-  //   router.push('/')
-  // }
 
   return (
     <form
@@ -51,15 +46,7 @@ export default function LoginForm({
           aria-invalid={error?.id === 'password'}
         />
       </div>
-      {error && (
-        <p
-          id={`login-form-error-${error?.id}`}
-          role='alert'
-          className='rounded-md border border-red-500/40 bg-red-500/15 px-3 py-2 text-xs text-red-300 sm:text-sm'
-        >
-          {error.message}
-        </p>
-      )}
+      <ErrorMessage error={error} type='login' />
       <div className='flex flex-col gap-2 pt-1'>
         <button type='submit' className={BUTTON_PRIMARY}>
           로그인

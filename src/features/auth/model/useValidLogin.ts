@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { validateLogin } from '../lib'
-import { ValidationError } from './auth.types'
+import type { ValidationError } from './auth.types'
 
 function useValidLogin() {
   const [error, setError] = useState<ValidationError>(null)
