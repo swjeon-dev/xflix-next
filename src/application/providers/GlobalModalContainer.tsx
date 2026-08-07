@@ -1,18 +1,26 @@
 'use client'
-import { lazy, Suspense, useEffect, useRef } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
+import dynamic from 'next/dynamic'
 
 import { DialogWrapper, useModal, cn } from '@/shared'
 import { MobileModalNavigation } from '@/widgets/mobile-nav'
 import type { ModalState, ModalType } from '../model'
 
-const TrailerModalLazy = lazy(
+const TrailerModalLazy = dynamic(
   () => import('@/features/trailer/ui/TrailerModal'),
+  { ssr: false },
 )
-const SearchModalLazy = lazy(() => import('@/features/search/ui/SearchModal'))
-const AuthModalLazy = lazy(() => import('@/features/auth/ui/AuthModal'))
-const EpisodesModalLazy = lazy(
+const SearchModalLazy = dynamic(
+  () => import('@/features/search/ui/SearchModal'),
+  { ssr: false },
+)
+const AuthModalLazy = dynamic(() => import('@/features/auth/ui/AuthModal'), {
+  ssr: false,
+})
+const EpisodesModalLazy = dynamic(
   () => import('@/features/episodes/ui/EpisodesModal'),
+  { ssr: false },
 )
 
 const MODAL_DIALOG_CLASS: Record<ModalType, string> = {
