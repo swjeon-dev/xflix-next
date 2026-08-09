@@ -1,8 +1,12 @@
 'use client'
+import { useActionState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
-import { type AuthType, useValidJoin } from '../model'
+import { useModal } from '@/shared'
+import { type AuthType, useAuth, useValidJoin } from '../model'
 import { INPUT_CLASS, BUTTON_PRIMARY, BUTTON_SECONDARY } from '../model'
 import ErrorMessage from './ErrorMessage'
+import { joinAction } from '../api'
 
 export default function JoinForm({
   onTypeChange,
@@ -10,10 +14,28 @@ export default function JoinForm({
   onTypeChange: (type: AuthType) => void
 }) {
   const { error, handleSubmit } = useValidJoin()
-  // 가입 버튼, 서버 액션
+  const [state, formAction, pending] = useActionState(joinAction, null)
+  const { refreshUser } = useAuth()
+  const { closeModal } = useModal()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (state?.status === 'error') {
+      alert(state.message)
+    }
+    if (state?.status === 'success') {
+      alert('회원 가입에 성공했습니다.')
+      void (async () => {
+        closeModal()
+        await refreshUser()
+        router.refresh()
+      })()
+    }
+  }, [state, closeModal, refreshUser, router])
+
   return (
     <form
-      action=''
+      action={formAction}
       className='flex flex-col gap-4'
       id='form-modal'
       aria-labelledby='form-modal'
@@ -21,6 +43,15 @@ export default function JoinForm({
       noValidate
     >
       <div className='flex flex-col gap-3'>
+        <label className='sr-only' htmlFor='join-origin'>
+          Origin
+        </label>
+        <input
+          id='join-origin'
+          type='hidden'
+          name='origin'
+          value={location.origin}
+        />
         <label className='sr-only' htmlFor='join-email'>
           이메일
         </label>
@@ -40,7 +71,7 @@ export default function JoinForm({
           id='join-password'
           type='password'
           name='password'
-          placeholder='4글자 이상 비밀번호'
+          placeholder='6글자 이상 비밀번호'
           className={INPUT_CLASS}
           required
           aria-invalid={error?.id === 'password'}
@@ -52,7 +83,7 @@ export default function JoinForm({
           id='join-password-confirm'
           type='password'
           name='password-confirm'
-          placeholder='4글자 이상 비밀번호'
+          placeholder='6글자 이상 비밀번호'
           className={INPUT_CLASS}
           required
           aria-invalid={error?.id === 'password-confirm'}
@@ -72,7 +103,7 @@ export default function JoinForm({
       </div>
       <ErrorMessage error={error} type='join' />
       <div className='flex flex-col gap-2 pt-1'>
-        <button type='submit' className={BUTTON_PRIMARY}>
+        <button type='submit' className={BUTTON_PRIMARY} disabled={pending}>
           가입
         </button>
         <button
