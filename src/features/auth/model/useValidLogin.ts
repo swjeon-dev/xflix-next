@@ -6,14 +6,17 @@ function useValidLogin() {
   const [error, setError] = useState<ValidationError>(null)
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault()
-
     const formData = new FormData(event.currentTarget)
     const email = formData.get('email')
     const password = formData.get('password')
 
     const error = validateLogin(email, password)
-    setError(error)
+
+    if (error) {
+      event.preventDefault()
+      setError(error)
+      return
+    }
   }
 
   useEffect(() => {

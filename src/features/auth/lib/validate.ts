@@ -1,11 +1,12 @@
 import { ValidationError } from '../model'
 
 function validateEmail(email: string): ValidationError {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
   if (!email) return { id: 'email', message: '이메일을 입력해 주세요.' }
-  if (!email.includes('@'))
+  if (!emailPattern.test(email))
     return { id: 'email', message: '올바른 이메일 형식이 아닙니다.' }
-  // if (email.length < 8)
-  //   return { id: 'email', message: '이메일은 8자 이상이어야 합니다.' }
+
   return null
 }
 

@@ -6,8 +6,6 @@ function useValidJoin() {
   const [error, setError] = useState<ValidationError>(null)
 
   function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault()
-
     const formData = new FormData(event.currentTarget)
     const email = formData.get('email')
     const name = formData.get('name')
@@ -15,7 +13,11 @@ function useValidJoin() {
     const passwordConfirm = formData.get('password-confirm')
 
     const error = validateJoin(email, name, password, passwordConfirm)
-    setError(error)
+    if (error) {
+      event.preventDefault()
+      setError(error)
+      return
+    }
   }
 
   useEffect(() => {
