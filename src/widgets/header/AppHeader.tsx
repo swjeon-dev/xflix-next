@@ -1,11 +1,13 @@
 'use client'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { ICONS, routes, useGetScrollY, useModal } from '@/shared'
 import { DesktopNav, HeaderMenu } from './ui'
+import { useAuth } from '@/features/auth'
+import { createClient } from '@/shared/api/supabase/client'
 
-function LoginButton() {
+function LoginButton({ disabled }: { disabled: boolean }) {
   const { openModal } = useModal()
 
   return (
@@ -14,18 +16,30 @@ function LoginButton() {
       className='block whitespace-nowrap font-medium text-white'
       aria-label='login'
       onClick={() => openModal({ type: 'auth' })}
+      disabled={disabled}
     >
       LOGIN
     </button>
   )
 }
-function LogoutButton({ handleClick }: { handleClick: () => void }) {
+function LogoutButton({ disabled }: { disabled: boolean }) {
+  const router = useRouter()
+
+  const handleClick = () => {
+    const confirmed = confirm('로그아웃 하시겠습니까?')
+    if (!confirmed) return
+    const supabase = createClient()
+    supabase.auth.signOut()
+    router.refresh()
+  }
+
   return (
     <button
       type='button'
       className='block whitespace-nowrap font-medium text-white'
       aria-label='logout'
       onClick={handleClick}
+      disabled={disabled}
     >
       LOGOUT
     </button>
@@ -33,13 +47,11 @@ function LogoutButton({ handleClick }: { handleClick: () => void }) {
 }
 
 function AppHeader() {
-  const [auth, setAuth] = useState(true)
+  const { isLoggedIn, loading } = useAuth()
+
   const scrollY = useGetScrollY()
   const isScroll = scrollY > 20
 
-  const clickedLogout = () => {
-    setAuth(false)
-  }
   return (
     <header
       className={`fixed top-0 w-full flex items-center gap-16 p-4 z-20 transition-colors duration-500 ease-in-out
@@ -54,7 +66,11 @@ function AppHeader() {
           <DesktopNav />
           <HeaderMenu />
         </nav>
-        {auth ? <LogoutButton handleClick={clickedLogout} /> : <LoginButton />}
+        {isLoggedIn ? (
+          <LogoutButton disabled={loading} />
+        ) : (
+          <LoginButton disabled={loading} />
+        )}
       </div>
     </header>
   )

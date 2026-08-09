@@ -1,3 +1,5 @@
+import type { User } from '@supabase/supabase-js'
+
 type AuthType = 'login' | 'join'
 type ValidationErrorId = 'email' | 'name' | 'password' | 'password-confirm'
 
@@ -5,4 +7,12 @@ type ValidationError = {
   id: ValidationErrorId
   message: string
 } | null
-export type { ValidationErrorId, ValidationError, AuthType }
+
+interface AuthContextProps {
+  user: User | null
+  isLoggedIn: boolean
+  loading: boolean
+  refreshUser: () => Promise<void>
+}
+
+export type { ValidationErrorId, ValidationError, AuthType, AuthContextProps }

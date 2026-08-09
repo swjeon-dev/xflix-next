@@ -3,7 +3,11 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 import { apiValidCheck } from '@/shared'
-import { GlobalModalContainer, ModalProvider } from '@/application/providers'
+import {
+  GlobalModalContainer,
+  ModalProvider,
+  AuthProvider,
+} from '@/application/providers'
 import { AppHeader } from '@/widgets/header'
 import { Footer } from '@/widgets/footer'
 
@@ -26,15 +30,17 @@ export default async function RootLayout({
   return (
     <html lang='ko'>
       <body className='min-h-screen bg-black text-white'>
-        <ModalProvider>
-          <div className='min-h-screen bg-black'>
-            <AppHeader />
-            <main>{children}</main>
-            <Footer />
-            {/* <ScrollRestoration /> */}
-          </div>
-          <GlobalModalContainer />
-        </ModalProvider>
+        <AuthProvider>
+          <ModalProvider>
+            <div className='min-h-screen bg-black'>
+              <AppHeader />
+              <main>{children}</main>
+              <Footer />
+              {/* <ScrollRestoration /> */}
+            </div>
+            <GlobalModalContainer />
+          </ModalProvider>
+        </AuthProvider>
       </body>
     </html>
   )
