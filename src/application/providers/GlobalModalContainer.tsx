@@ -1,5 +1,5 @@
 'use client'
-import { Suspense, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import dynamic from 'next/dynamic'
 
@@ -59,25 +59,24 @@ export default function GlobalModalContainer() {
   const modal = currentModal as ModalState | null
 
   useEffect(() => {
-    const currentPathname = pathname
-
-    if (prevPathname.current === currentPathname) return
-
-    prevPathname.current = currentPathname
+    if (prevPathname.current === pathname) return
+    prevPathname.current = pathname
     closeModal()
   }, [pathname, closeModal])
+
+  function handleClose() {
+    closeModal()
+  }
 
   if (!modal) return null
 
   return (
     <DialogWrapper
       isOpen
-      onClose={closeModal}
+      onClose={handleClose}
       className={cn(MODAL_DIALOG_CLASS[modal.type], modal.className)}
     >
-      <Suspense fallback={null}>
-        <ModalBody modal={modal} onClose={closeModal} />
-      </Suspense>
+      <ModalBody modal={modal} onClose={handleClose} />
     </DialogWrapper>
   )
 }

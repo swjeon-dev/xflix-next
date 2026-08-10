@@ -1,10 +1,11 @@
 'use client'
 import { useActionState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { useModal } from '@/shared'
 import { type AuthType, useAuth, useValidJoin } from '../model'
 import { INPUT_CLASS, BUTTON_PRIMARY, BUTTON_SECONDARY } from '../model'
+import { getSafeNextPath } from '@/shared/lib'
 import ErrorMessage from './ErrorMessage'
 import { joinAction } from '../api'
 
@@ -18,6 +19,7 @@ export default function JoinForm({
   const { refreshUser } = useAuth()
   const { closeModal } = useModal()
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     if (state?.status === 'error') {
@@ -26,12 +28,16 @@ export default function JoinForm({
     if (state?.status === 'success') {
       alert('회원 가입에 성공했습니다.')
       void (async () => {
+        const rawNext = searchParams.get('next')
         closeModal()
         await refreshUser()
+        if (rawNext) {
+          router.replace(getSafeNextPath(rawNext))
+        }
         router.refresh()
       })()
     }
-  }, [state, closeModal, refreshUser, router])
+  }, [state, closeModal, refreshUser, router, searchParams])
 
   return (
     <form

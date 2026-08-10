@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import { validateJoin } from '../lib'
 import type { ValidationError } from './auth.types'

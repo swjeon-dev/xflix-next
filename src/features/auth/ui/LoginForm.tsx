@@ -1,11 +1,12 @@
 'use client'
 
 import { useActionState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import { useModal } from '@/shared'
 import { type AuthType, useValidLogin, useAuth } from '../model'
 import { INPUT_CLASS, BUTTON_PRIMARY, BUTTON_SECONDARY } from '../model'
+import { getSafeNextPath } from '@/shared/lib'
 import ErrorMessage from './ErrorMessage'
 import { loginAction } from '../api'
 
@@ -19,6 +20,7 @@ export default function LoginForm({
   const { error, handleSubmit } = useValidLogin()
   const [state, formAction, pending] = useActionState(loginAction, null)
   const router = useRouter()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
     if (state?.status === 'error') {
@@ -26,12 +28,16 @@ export default function LoginForm({
     }
     if (state?.status === 'success') {
       void (async () => {
+        const rawNext = searchParams.get('next')
         closeModal()
         await refreshUser()
+        if (rawNext) {
+          router.replace(getSafeNextPath(rawNext))
+        }
         router.refresh()
       })()
     }
-  }, [state, closeModal, refreshUser, router])
+  }, [state, closeModal, refreshUser, router, searchParams])
 
   return (
     <form

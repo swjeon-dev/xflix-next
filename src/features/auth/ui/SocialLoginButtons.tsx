@@ -1,8 +1,11 @@
 'use client'
+import { useState } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+
 import { cn, ICONS } from '@/shared'
 import { SOCIAL_PROVIDERS, type SocialProviderId } from '../config'
 import { createClient } from '@/shared/api/supabase/client'
-import { useState } from 'react'
+import { getSafeNextPath } from '@/shared/lib'
 
 const PROVIDER_ICONS: Record<SocialProviderId, React.ReactNode> = {
   google: ICONS.google,
@@ -15,14 +18,18 @@ interface SocialLoginButtonsProps {
 
 function SocialLoginButtons({ label }: SocialLoginButtonsProps) {
   const [pending, setPending] = useState(false)
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
   async function handleSocial(provider: SocialProviderId) {
     setPending(true)
     const supabase = createClient()
+    const next = getSafeNextPath(searchParams.get('next') ?? pathname)
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: `${location.origin}/auth/callback`,
+        redirectTo: `${location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
       },
     })
 

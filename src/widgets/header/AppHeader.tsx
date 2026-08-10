@@ -1,11 +1,9 @@
 'use client'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 import { ICONS, routes, useGetScrollY, useModal } from '@/shared'
-import { DesktopNav, HeaderMenu } from './ui'
 import { useAuth } from '@/features/auth'
-import { createClient } from '@/shared/api/supabase/client'
+import { DesktopNav, HeaderMenu, UserAvatarMenu } from './ui'
 
 function LoginButton({ disabled }: { disabled: boolean }) {
   const { openModal } = useModal()
@@ -22,32 +20,9 @@ function LoginButton({ disabled }: { disabled: boolean }) {
     </button>
   )
 }
-function LogoutButton({ disabled }: { disabled: boolean }) {
-  const router = useRouter()
-
-  const handleClick = () => {
-    const confirmed = confirm('로그아웃 하시겠습니까?')
-    if (!confirmed) return
-    const supabase = createClient()
-    supabase.auth.signOut()
-    router.refresh()
-  }
-
-  return (
-    <button
-      type='button'
-      className='block whitespace-nowrap font-medium text-white'
-      aria-label='logout'
-      onClick={handleClick}
-      disabled={disabled}
-    >
-      LOGOUT
-    </button>
-  )
-}
 
 function AppHeader() {
-  const { isLoggedIn, loading } = useAuth()
+  const { user, isLoggedIn, loading } = useAuth()
 
   const scrollY = useGetScrollY()
   const isScroll = scrollY > 20
@@ -66,8 +41,8 @@ function AppHeader() {
           <DesktopNav />
           <HeaderMenu />
         </nav>
-        {isLoggedIn ? (
-          <LogoutButton disabled={loading} />
+        {isLoggedIn && user ? (
+          <UserAvatarMenu user={user} disabled={loading} />
         ) : (
           <LoginButton disabled={loading} />
         )}
