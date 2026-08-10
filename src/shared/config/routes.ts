@@ -2,6 +2,8 @@ import { buildSearchPath } from '@/shared'
 
 export const routes = {
   ROOT: '/',
+  MYPAGE: '/mypage',
+  LOGIN_REQUIRED: '/login-required',
   MOVIE: {
     PARAMETER: '/:id',
     LIST: '/movie',
@@ -17,5 +19,8 @@ export const routes = {
   SEARCH: {
     LIST: '/search',
     path: buildSearchPath,
+  },
+  ERROR: {
+    AUTH: '/auth/auth-code-error',
   },
 } as const
