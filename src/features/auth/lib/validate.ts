@@ -19,8 +19,8 @@ function validateName(name: string): ValidationError {
 
 function validatePassword(password: string): ValidationError {
   if (!password) return { id: 'password', message: '비밀번호를 입력해 주세요.' }
-  if (password.length < 4)
-    return { id: 'password', message: '비밀번호는 4자 이상이어야 합니다.' }
+  if (password.length < 6)
+    return { id: 'password', message: '비밀번호는 6자 이상이어야 합니다.' }
   return null
 }
 
@@ -76,4 +76,23 @@ function validateJoin(
   return null
 }
 
-export { validateLogin, validateJoin }
+function validatePasswordChange(
+  password: FormDataEntryValue | null,
+  passwordConfirm: FormDataEntryValue | null,
+): ValidationError {
+  const passwordString = password?.toString() ?? ''
+  const passwordConfirmString = passwordConfirm?.toString() ?? ''
+
+  const passwordError = validatePassword(passwordString)
+  const passwordConfirmError = validatePasswordConfirm(
+    passwordString,
+    passwordConfirmString,
+  )
+
+  if (passwordError) return passwordError
+  if (passwordConfirmError) return passwordConfirmError
+
+  return null
+}
+
+export { validateLogin, validateJoin, validatePasswordChange }
