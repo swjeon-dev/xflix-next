@@ -1,8 +1,9 @@
+import './globals.css'
 import type { Metadata } from 'next'
 
-import './globals.css'
-
+import { cookies } from 'next/headers'
 import { apiValidCheck } from '@/shared'
+import { createClient } from '@/shared/api/supabase/server'
 import {
   GlobalModalContainer,
   ModalProvider,
@@ -27,10 +28,15 @@ export default async function RootLayout({
     throw new Error(error)
   }
 
+  const supabase = createClient(await cookies())
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
   return (
     <html lang='ko'>
       <body className='min-h-screen bg-black text-white'>
-        <AuthProvider>
+        <AuthProvider initialUser={user}>
           <ModalProvider>
             <div className='min-h-screen bg-black'>
               <AppHeader />

@@ -4,9 +4,15 @@ import type { User } from '@supabase/supabase-js'
 import { createClient } from '@/shared/api/supabase/client'
 import { AuthContext } from '@/features/auth'
 
-function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
+function AuthProvider({
+  children,
+  initialUser = null,
+}: {
+  children: React.ReactNode
+  initialUser?: User | null
+}) {
+  const [user, setUser] = useState<User | null>(initialUser)
+  const [loading, setLoading] = useState(false)
 
   const supabase = useMemo(() => createClient(), [])
 
@@ -17,8 +23,6 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [supabase])
 
   useEffect(() => {
-    void refreshUser()
-
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -27,7 +31,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     })
 
     return () => subscription.unsubscribe()
-  }, [supabase, refreshUser])
+  }, [supabase])
 
   const value = useMemo(
     () => ({ user, isLoggedIn: !!user, loading, refreshUser }),
