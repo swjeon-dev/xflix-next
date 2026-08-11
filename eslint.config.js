@@ -9,7 +9,7 @@ import fsdLite from './eslint.fsd.mjs'
 // flat config + FSD Lite (eslint.fsd.mjs)
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', '.next'] },
   {
     extends: [js.configs.recommended, ...tseslint.configs.recommended],
     files: ['**/*.{ts,tsx}'],

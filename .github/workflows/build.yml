@@ -1,4 +1,4 @@
-name: Lint
+name: Build
 
 on:
   pull_request:
@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -18,5 +18,4 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: npm run lint # 경고 OK, 에러면 fail
-
+      - run: npm run build # 빌드 오류 시 fail
