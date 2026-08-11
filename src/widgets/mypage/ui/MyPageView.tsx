@@ -61,7 +61,6 @@ export default function MyPageView({ profile }: { profile: MyPageProfile }) {
     if (!confirmed) return
     const supabase = createClient()
     await supabase.auth.signOut()
-    // router.replace(routes.ROOT)
     router.refresh()
   }
 
@@ -142,15 +141,14 @@ export default function MyPageView({ profile }: { profile: MyPageProfile }) {
           />
         </div>
 
+        <p className='text-xs text-white/40'>
+          소셜 로그인 계정도 비밀번호를 등록하면 이메일로 로그인할 수 있습니다.
+        </p>
         {error && (
           <p className='text-sm text-red-400' role='alert'>
             {error.message}
           </p>
         )}
-
-        <p className='text-xs text-white/40'>
-          소셜 로그인 계정도 비밀번호를 등록하면 이메일로 로그인할 수 있습니다.
-        </p>
 
         <button type='submit' className={BUTTON_PRIMARY} disabled={pending}>
           {pending ? '저장 중...' : '비밀번호 변경'}
