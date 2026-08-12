@@ -1,13 +1,14 @@
 'use client'
 
 import { createContext } from 'react'
-import { AuthContextProps } from './auth.types'
+import type { AuthContextProps } from './auth.types'
 
 const AuthContext = createContext<AuthContextProps>({
   user: null,
   isLoggedIn: false,
   loading: true,
-  refreshUser: async () => {},
+  refreshUser: async () => null,
+  clearUser: () => {},
 })
 
 export default AuthContext

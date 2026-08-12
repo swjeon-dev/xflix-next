@@ -1,8 +1,5 @@
 export * from './ui'
 export * from './config'
 export * from './model'
-export {
-  validateJoin,
-  validateLogin,
-  validatePasswordChange,
-} from './lib'
+export * from './api'
+export { validateJoin, validateLogin, validatePasswordChange } from './lib'

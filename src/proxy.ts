@@ -11,7 +11,7 @@ export async function proxy(request: NextRequest) {
   const { user, supabaseResponse } = await updateSession(request)
   const { pathname } = request.nextUrl
 
-  console.log('proxy', request.cookies)
+  console.log('user', user)
   // if (!user && isProtectedPath(pathname)) {
   if (!user) {
     const url = new URL('/login-required', request.url)

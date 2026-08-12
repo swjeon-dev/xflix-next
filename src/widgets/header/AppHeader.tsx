@@ -24,6 +24,9 @@ function LoginButton({ disabled }: { disabled: boolean }) {
 function AppHeader() {
   const { user, isLoggedIn, loading } = useAuth()
 
+  console.log('user', user)
+  console.log('isLoggedIn', isLoggedIn)
+  console.log('loading', loading)
   const scrollY = useGetScrollY()
   const isScroll = scrollY > 20
 

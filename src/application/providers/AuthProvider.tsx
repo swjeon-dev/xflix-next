@@ -18,9 +18,16 @@ function AuthProvider({
 
   const refreshUser = useCallback(async () => {
     const { data } = await supabase.auth.getUser()
-    setUser(data.user ?? null)
+    const nextUser = data.user ?? null
+    setUser(nextUser)
     setLoading(false)
+    return nextUser
   }, [supabase])
+
+  const clearUser = useCallback(() => {
+    setUser(null)
+    setLoading(false)
+  }, [])
 
   useEffect(() => {
     const {
@@ -34,8 +41,8 @@ function AuthProvider({
   }, [supabase])
 
   const value = useMemo(
-    () => ({ user, isLoggedIn: !!user, loading, refreshUser }),
-    [user, loading, refreshUser],
+    () => ({ user, isLoggedIn: !!user, loading, refreshUser, clearUser }),
+    [user, loading, refreshUser, clearUser],
   )
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

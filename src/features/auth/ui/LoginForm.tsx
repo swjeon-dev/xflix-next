@@ -3,10 +3,9 @@
 import { useActionState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-import { useModal } from '@/shared'
+import { useModal, getSafeNextPath } from '@/shared'
 import { type AuthType, useValidLogin, useAuth } from '../model'
 import { INPUT_CLASS, BUTTON_PRIMARY, BUTTON_SECONDARY } from '../model'
-import { getSafeNextPath } from '@/shared/lib'
 import ErrorMessage from './ErrorMessage'
 import { loginAction } from '../api'
 
@@ -25,30 +24,30 @@ export default function LoginForm({
   useEffect(() => {
     if (state?.status === 'error') {
       alert(state.message)
+      return
     }
-    if (state?.status === 'success') {
-      void (async () => {
-        const rawNext = searchParams.get('next')
-        closeModal()
-        await refreshUser()
-        if (rawNext) {
-          router.replace(getSafeNextPath(rawNext))
-        }
-        router.refresh()
-      })()
-    }
+    if (state?.status !== 'success') return
+
+    void (async () => {
+      closeModal()
+      await refreshUser()
+      const rawNext = searchParams.get('next')
+      if (rawNext) {
+        router.replace(getSafeNextPath(rawNext))
+      }
+    })()
   }, [state, closeModal, refreshUser, router, searchParams])
 
   return (
     <form
       action={formAction}
       className='flex flex-col gap-4'
-      id='form-modal'
-      aria-labelledby='form-modal'
+      aria-labelledby='auth-modal-title'
       onSubmit={handleSubmit}
       noValidate
     >
-      <div className='flex flex-col gap-3'>
+      <fieldset className='flex flex-col gap-3' disabled={pending}>
+        <legend className='sr-only'>로그인</legend>
         <label className='sr-only' htmlFor='login-email'>
           이메일
         </label>
@@ -60,8 +59,7 @@ export default function LoginForm({
           placeholder='이메일'
           className={INPUT_CLASS}
           required
-          aria-invalid={error?.id === 'email'}
-          disabled={pending}
+          aria-invalid={state?.field === 'email'}
         />
         <label className='sr-only' htmlFor='login-password'>
           비밀번호
@@ -74,10 +72,10 @@ export default function LoginForm({
           placeholder='6글자 이상 비밀번호'
           className={INPUT_CLASS}
           required
-          aria-invalid={error?.id === 'password'}
-          disabled={pending}
+          aria-invalid={state?.field === 'password'}
         />
-      </div>
+      </fieldset>
+
       <ErrorMessage error={error} type='login' />
       <div className='flex flex-col gap-2 pt-1'>
         <button type='submit' className={BUTTON_PRIMARY} disabled={pending}>

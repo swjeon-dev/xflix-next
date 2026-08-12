@@ -17,7 +17,9 @@ export default async function MyPage() {
   } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect(`${routes.LOGIN_REQUIRED}?next=${encodeURIComponent(routes.MYPAGE)}`)
+    redirect(
+      `${routes.LOGIN_REQUIRED}?next=${encodeURIComponent(routes.MYPAGE)}`,
+    )
   }
 
   const name =
@@ -26,12 +28,16 @@ export default async function MyPage() {
       user.user_metadata.full_name) ||
     ''
 
+  const providers = user.app_metadata?.providers
+  const hasEmailAuth = Array.isArray(providers) && providers.includes('email')
+
   return (
     <MyPageView
       profile={{
         email: user.email ?? '',
         name,
       }}
+      hasEmailAuth={hasEmailAuth}
     />
   )
 }

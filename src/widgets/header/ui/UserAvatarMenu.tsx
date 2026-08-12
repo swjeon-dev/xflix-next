@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import type { User } from '@supabase/supabase-js'
 
 import { routes } from '@/shared'
 import { createClient } from '@/shared/api/supabase/client'
+import { useRouter } from 'next/navigation'
 
 function getAvatarUrl(user: User) {
   const meta = user.user_metadata
@@ -31,11 +31,10 @@ export default function UserAvatarMenu({
   user: User
   disabled: boolean
 }) {
-  const router = useRouter()
   const [open, setOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
   const avatarUrl = getAvatarUrl(user)
-
+  const router = useRouter()
   useEffect(() => {
     if (!open) return
 
