@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 import { isNavActive } from '@/shared'
-import { NAV_ITEMS } from '../config/navItems'
+import { NAV_ITEMS } from '../config'
 
 function DesktopNav() {
   const pathname = usePathname()

@@ -1,5 +1,5 @@
 import type { ITV } from '@/entities/tv'
-import type { ISearchFilterTag } from '@/shared'
+import type { IFilterTag as ISearchFilterTag } from '@/shared'
 
 function getDirector(tv: ITV): ISearchFilterTag | null {
   const creator = tv.created_by[0]
