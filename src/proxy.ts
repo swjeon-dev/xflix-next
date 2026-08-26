@@ -1,18 +1,10 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/application/api/supabase'
 
-// export const PROTECTED_PATHS = ['/mypage']
-
-// function isProtectedPath(pathname: string) {
-//   return pathname === '/mypage' || pathname.startsWith('/mypage/')
-// }
-
 export async function proxy(request: NextRequest) {
   const { user, supabaseResponse } = await updateSession(request)
   const { pathname } = request.nextUrl
 
-  console.log('user', user)
-  // if (!user && isProtectedPath(pathname)) {
   if (!user) {
     const url = new URL('/login-required', request.url)
     url.searchParams.set('next', `${pathname}${request.nextUrl.search}`)
