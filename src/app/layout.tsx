@@ -1,5 +1,5 @@
 import './globals.css'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 import { cookies } from 'next/headers'
 import { apiValidCheck } from '@/shared'
@@ -15,6 +15,10 @@ import { Footer } from '@/widgets/footer'
 export const metadata: Metadata = {
   title: { default: 'XFlix', template: '%s | XFlix' },
   description: '영화·TV 탐색 서비스',
+}
+
+export const viewport: Viewport = {
+  interactiveWidget: 'resizes-content',
 }
 
 export default async function RootLayout({
